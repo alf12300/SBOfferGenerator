@@ -2,6 +2,7 @@ from docx import Document
 from constants import COMMERCIAL_TERMS
 from docx.shared import Pt  # Import the required utility functions
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT  # Import alignment utility
+from datetime import datetime
 
 def calculate_cost(added_services):
     total_cost = 0
