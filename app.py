@@ -153,7 +153,7 @@ elif tab_selection == "Cost Estimator":
 # Using a container to center content
     with st.container():
         # Logo Row
-        col1, col2, col3 = st.columns([6,1,6])
+        coltitle, collogo2, coltitle2 = st.columns([6,1,6])
         col2.image(img_resized, width=new_width)
     
     
