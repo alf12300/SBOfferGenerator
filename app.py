@@ -43,7 +43,7 @@ with col1:
     client_names = clients_df["NOMBRE"].tolist()
     selected_client = st.selectbox("Seleccione un cliente:", [""] + client_names)
     
-   if selected_client:
+    if selected_client:
         client_data = clients_df[clients_df["NOMBRE"] == selected_client].iloc[0]
         name = st.text_input("Nombre:", value=client_data["NOMBRE"])
         dni = st.text_input("DNI o NIE:", value=client_data["NIF/CIF"])
