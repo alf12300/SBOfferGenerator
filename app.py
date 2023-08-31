@@ -161,7 +161,7 @@ elif tab_selection == "Estimador de Costos":
     # Add Custom Tool button in the right column
     with col_button:
         st.markdown("<br>", unsafe_allow_html=True)
-        if st.button("Agregar Herramienta Personalizada"):
+        if st.button("Agregar Costo"):
             st.session_state.custom_tools.append({"name": "", "unit_price": 0.0, "quantity": 0})
 
 
