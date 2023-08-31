@@ -151,9 +151,6 @@ if tab_selection == "Generador de Propuestas":
     
 elif tab_selection == "Estimador de Costos":
     
-    # Logo and Title Row
-    with st.container():
-
     title_col = st.title("Estimador de Costos")
     
     # Dropdown for service selection
