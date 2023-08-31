@@ -34,7 +34,7 @@ if tab_selection == "Generador de Propuestas":
     
     
     # Title Row
-    title("Generador de Ofertas")
+    st.title("Generador de Ofertas")
     # Create spacer and main columns for the top row
     col1, col2= st.columns([6,6])
     
