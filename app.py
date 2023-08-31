@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from constants import COSTS_DESCRIPTIONS, COMMERCIAL_TERMS
+from constants import COSTS_DESCRIPTIONS, COMMERCIAL_TERMS, TOOLS_MAPPING
 from calculations import calculate_cost, generate_word_quote
 from PIL import Image
 
