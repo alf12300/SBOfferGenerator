@@ -152,10 +152,12 @@ if tab_selection == "Generador de Propuestas":
 elif tab_selection == "Estimador de Costos":
     
     title_col = st.title("Estimador de Costos")
+    if "total_estimated_costs" not in st.session_state:
+    st.session_state.total_estimated_costs = 0
     
     # Dropdown for service selection
     selected_service = st.selectbox("Seleccione un servicio:", list(COSTS_DESCRIPTIONS.keys()))
-    
+
     # Retrieve tools for the selected service
     tools_for_service = TOOLS_MAPPING.get(selected_service, [])
 
@@ -173,3 +175,7 @@ elif tab_selection == "Estimador de Costos":
         cost = inputs["quantity"] * inputs["unit_price"]
         tool_costs[tool] = cost
         st.write(f"Costo total para {tool}: €{cost:.2f}")
+
+    # Button to add the current service's total cost to the job's total
+    if st.button("Agregar al total"):
+        st.session_state.total_estimated_costs += sum(tool_costs.values())
