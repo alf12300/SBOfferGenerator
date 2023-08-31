@@ -14,6 +14,7 @@ if "added_services" not in st.session_state:
 # Open the image using PIL
 img = Image.open("logo.jpeg")
 
+clients_df = pd.read_excel("/path/to/CLIENTS.xlsx")
 
 # Resize the image
 base_width = img.width
