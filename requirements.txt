@@ -1,4 +1,3 @@
 docx
-datetime
 streamlit
-PIL
+Pillow
