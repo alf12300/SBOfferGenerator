@@ -153,7 +153,7 @@ elif tab_selection == "Estimador de Costos":
     project_name = st.text_input("Nombre del Proyecto:")
 
     # Create two columns: one for dropdown (2/3 of the width) and one for the button (1/3 of the width)    
-    col_dropdown, col_button = st.columns([6, 4])
+    col_dropdown, col_button = st.columns([8, 4])
     # Dropdown for service selection in the left column
     with col_dropdown:
         selected_service = st.selectbox("Seleccione un servicio:", list(COSTS_DESCRIPTIONS.keys()))
