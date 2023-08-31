@@ -160,7 +160,7 @@ elif tab_selection == "Estimador de Costos":
     # Add Custom Tool button in the right column
     with col_button:
         if st.button("Agregar Herramienta Personalizada"):
-        st.session_state.custom_tools.append({"name": "", "unit_price": 0.0, "quantity": 0})
+            st.session_state.custom_tools.append({"name": "", "unit_price": 0.0, "quantity": 0})
 
     # Retrieve tools for the selected service
     tools_for_service = TOOLS_MAPPING.get(selected_service, [])
