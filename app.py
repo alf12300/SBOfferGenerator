@@ -186,23 +186,24 @@ elif tab_selection == "Estimador de Costos":
     if st.button("Agregar Herramienta Personalizada"):
         st.session_state.custom_tools.append({"name": "", "unit_price": 0.0, "quantity": 0})
 
-# Display input fields for each tool in custom_tools
-    for tool in st.session_state.custom_tools:
+    # Display input fields for each tool in custom_tools
+    for idx, tool in enumerate(st.session_state.custom_tools):
         col_name, col_unit_price, col_quantity, col_total = st.columns([2, 2, 2, 2])
         
         with col_name:
-            tool["name"] = st.text_input("Nombre de la herramienta", value=tool["name"])
+            tool["name"] = st.text_input("Nombre de la herramienta", value=tool["name"], key=f"tool_name_{idx}")
         
         with col_unit_price:
-            tool["unit_price"] = st.number_input("Precio unitario (€)", min_value=0.0, value=tool["unit_price"], step=0.01)
+            tool["unit_price"] = st.number_input("Precio unitario (€)", min_value=0.0, value=tool["unit_price"], step=0.01, key=f"tool_unit_price_{idx}")
         
         with col_quantity:
-            tool["quantity"] = st.number_input("Cantidad", min_value=0, value=tool["quantity"], step=1)
+            tool["quantity"] = st.number_input("Cantidad", min_value=0, value=tool["quantity"], step=1, key=f"tool_quantity_{idx}")
         
         total_for_tool = tool["unit_price"] * tool["quantity"]
         with col_total:
             st.text("Costo Total")
             st.write(f"€{total_for_tool:.2f}")
+
 
     # Only add the custom tool if a name is provided
     if custom_tool_name:
