@@ -7,11 +7,9 @@ from PIL import Image
 
 # Set page config
 st.set_page_config(
-    layout="wide",
-    theme={
-        "base": "light"
-    }
+    layout="wide"
 )
+
 if "added_services" not in st.session_state:
     st.session_state.added_services = []
 
