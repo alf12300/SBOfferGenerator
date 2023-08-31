@@ -192,7 +192,7 @@ elif tab_selection == "Estimador de Costos":
     
     # Display input fields for each tool in custom_tools
     for idx, tool in enumerate(st.session_state.custom_tools):
-        col_name, col_unit_price, col_quantity, col_total = st.columns([2, 2, 2, 2])
+        col_name, col_unit_price, col_quantity, col_total, col_remove = st.columns([2, 2, 2, 2, 1])
         
         with col_name:
             tool["name"] = st.text_input("Nombre de la herramienta", value=tool["name"], key=f"tool_name_{idx}")
@@ -208,9 +208,15 @@ elif tab_selection == "Estimador de Costos":
             st.text("Costo Total")
             st.write(f"€{total_for_tool:.2f}")
         
+        with col_remove:
+            if st.button("Eliminar", key=f"remove_{idx}"):
+                st.session_state.custom_tools.pop(idx)
+                st.experimental_rerun()
+        
         # Add custom tool costs to tool_inputs
         if tool["name"]:  # only if a name is provided
             tool_inputs[tool["name"]] = {"quantity": tool["quantity"], "unit_price": tool["unit_price"]}
+
     
     # Calculate costs for each tool (including custom ones)
     tool_costs = {}
