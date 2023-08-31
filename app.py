@@ -153,9 +153,8 @@ elif tab_selection == "Estimador de Costos":
     
     # Logo and Title Row
     with st.container():
-        coltitle, collogo2, coltitle2 = st.columns([6,1,6])
-        collogo2.image(img_resized, width=new_width)
-        title_col = st.title("Estimador de Costos")
+
+    title_col = st.title("Estimador de Costos")
     
     # Dropdown for service selection
     selected_service = st.selectbox("Seleccione un servicio:", list(COSTS_DESCRIPTIONS.keys()))
