@@ -11,7 +11,7 @@ if "added_services" not in st.session_state:
     st.session_state.added_services = []
 
 # Open the image using PIL
-img = Image.open("logo.jpeg")
+img = Image.open("https://github.com/alf12300/SBOfferGenerator/blob/main/logo.jpeg?raw=true")
 
 # Resize the image
 base_width = img.width
