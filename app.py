@@ -149,7 +149,8 @@ elif tab_selection == "Estimador de Costos":
     title_col = st.title("Estimador de Costos")
     if "total_estimated_costs" not in st.session_state:
         st.session_state.total_estimated_costs = 0
-
+    # Input for project name
+    project_name = st.text_input("Nombre del Proyecto:")
 
     # Create two columns: one for dropdown (2/3 of the width) and one for the button (1/3 of the width)    
     col_dropdown, col_button = st.columns([2, 1])
