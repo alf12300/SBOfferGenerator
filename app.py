@@ -237,7 +237,7 @@ elif tab_selection == "Estimador de Costos":
                 "unit_price": tool_inputs[tool]["unit_price"],
                 "total_cost": cost
             })
-
-  st.markdown("### Costos Agregados al Proyecto")
+    
+    st.markdown("### Costos Agregados al Proyecto")
     for entry in st.session_state.added_costs:
         st.write(f"{entry['name']} (Cantidad: {entry['quantity']}, Precio unitario: €{entry['unit_price']:.2f}): €{entry['total_cost']:.2f}")
