@@ -262,7 +262,7 @@ elif tab_selection == "Estimador de Costos":
     data = []
     for entry in st.session_state.added_costs:
         data.append({
-            "Servicio": selected_service,
+            "Servicio": entry['service'],  # Use service name stored in session state
             "Herramienta": entry['name'],
             "Precio Unitario": f"€{entry['unit_price']:.2f}",
             "Cantidad": entry['quantity'],
