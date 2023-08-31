@@ -233,29 +233,29 @@ elif tab_selection == "Estimador de Costos":
 
     
     # Calculate costs for each tool (including custom ones)
-tool_costs = {}
-for tool, inputs in tool_inputs.items():
-    cost = inputs["quantity"] * inputs["unit_price"]
-    tool_costs[tool] = cost
-
-# Calculating the total sum for currently displayed tools (i.e., for the currently selected service)
-total_cost_current_tools = sum(tool_costs.values())
-st.markdown(f"### Costo Parcial del Servicio: **€{total_cost_current_tools:.2f}**")
-
-# For services
-if st.button("Agregar al total"):
+    tool_costs = {}
     for tool, inputs in tool_inputs.items():
-        if inputs["quantity"] == 0:  # Skip tools with 0 quantity
-            continue
         cost = inputs["quantity"] * inputs["unit_price"]
-        
-        # Add these tool costs to session_state
-        st.session_state.added_costs.append({
-            "name": tool,
-            "quantity": inputs["quantity"],
-            "unit_price": inputs["unit_price"],
-            "total_cost": cost
-        })
+        tool_costs[tool] = cost
+    
+    # Calculating the total sum for currently displayed tools (i.e., for the currently selected service)
+    total_cost_current_tools = sum(tool_costs.values())
+    st.markdown(f"### Costo Parcial del Servicio: **€{total_cost_current_tools:.2f}**")
+    
+    # For services
+    if st.button("Agregar al total"):
+        for tool, inputs in tool_inputs.items():
+            if inputs["quantity"] == 0:  # Skip tools with 0 quantity
+                continue
+            cost = inputs["quantity"] * inputs["unit_price"]
+            
+            # Add these tool costs to session_state
+            st.session_state.added_costs.append({
+                "name": tool,
+                "quantity": inputs["quantity"],
+                "unit_price": inputs["unit_price"],
+                "total_cost": cost
+            })
         
     st.markdown("### Costos Agregados al Proyecto")
 
