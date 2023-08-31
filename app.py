@@ -149,10 +149,19 @@ elif tab_selection == "Estimador de Costos":
     title_col = st.title("Estimador de Costos")
     if "total_estimated_costs" not in st.session_state:
         st.session_state.total_estimated_costs = 0
+
+
+    # Create two columns: one for dropdown (2/3 of the width) and one for the button (1/3 of the width)    
+    col_dropdown, col_button = st.columns([2, 1])
+    # Dropdown for service selection in the left column
+    with col_dropdown:
+        selected_service = st.selectbox("Seleccione un servicio:", list(COSTS_DESCRIPTIONS.keys()))
     
-    # Dropdown for service selection
-    selected_service = st.selectbox("Seleccione un servicio:", list(COSTS_DESCRIPTIONS.keys()))
-    
+    # Add Custom Tool button in the right column
+    with col_button:
+        if st.button("Agregar Herramienta Personalizada"):
+        st.session_state.custom_tools.append({"name": "", "unit_price": 0.0, "quantity": 0})
+
     # Retrieve tools for the selected service
     tools_for_service = TOOLS_MAPPING.get(selected_service, [])
     
@@ -178,10 +187,6 @@ elif tab_selection == "Estimador de Costos":
             st.write(f"€{total_for_item:.2f}")
             
         tool_inputs[tool] = {"quantity": quantity, "unit_price": unit_price}
-    
-    # Add Custom Tool button
-    if st.button("Agregar Herramienta Personalizada"):
-        st.session_state.custom_tools.append({"name": "", "unit_price": 0.0, "quantity": 0})
     
     # Display input fields for each tool in custom_tools
     for idx, tool in enumerate(st.session_state.custom_tools):
