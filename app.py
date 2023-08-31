@@ -149,16 +149,31 @@ if tab_selection == "Generador de Propuestas":
         collogo.image(img_resized, width=new_width)
     
     
-elif tab_selection == "Cost Estimator":
-# Using a container to center content
+elif tab_selection == "Estimador de Costos":
+    
+    # Logo and Title Row
     with st.container():
-        # Logo Row
         coltitle, collogo2, coltitle2 = st.columns([6,1,6])
-        col2.image(img_resized, width=new_width)
+        collogo2.image(img_resized, width=new_width)
+        title_col = st.title("Estimador de Costos")
     
+    # Dropdown for service selection
+    selected_service = st.selectbox("Seleccione un servicio:", list(COSTS_DESCRIPTIONS.keys()))
     
-    # Title Row
-    spacer_left, title_col, spacer_right = st.columns([1,6,1])
-    title_col.title("Generador de Ofertas")
+    # Retrieve tools for the selected service
+    tools_for_service = TOOLS_MAPPING.get(selected_service, [])
 
-    
+    # Dictionary to store user inputs for each tool
+    tool_inputs = {}
+    for tool in tools_for_service:
+        st.markdown(f"### {tool}")
+        quantity = st.number_input(f"Cantidad de {tool}", min_value=0, value=0, step=1)
+        unit_price = st.number_input(f"Precio unitario de {tool} (€)", min_value=0.0, value=0.0, step=0.01)
+        tool_inputs[tool] = {"quantity": quantity, "unit_price": unit_price}
+
+    # Dictionary to store calculated costs for each tool
+    tool_costs = {}
+    for tool, inputs in tool_inputs.items():
+        cost = inputs["quantity"] * inputs["unit_price"]
+        tool_costs[tool] = cost
+        st.write(f"Costo total para {tool}: €{cost:.2f}")
