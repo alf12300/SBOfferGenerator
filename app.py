@@ -239,21 +239,17 @@ elif tab_selection == "Estimador de Costos":
     
     st.markdown("### Costos Agregados al Proyecto")
 
-    columns = ["Servicio", "Herramienta", "Precio Unitario", "Cantidad", "Costo Total"]
-    df = pd.DataFrame(columns=columns)
-    
-    # Creating an empty DataFrame with the desired columns
-    df = pd.DataFrame(columns=["Servicio", "Herramienta", "Precio Unitario", "Cantidad", "Costo Total"])
-    
-   # Populating the DataFrame with the data stored in st.session_state.added_costs
+    data = []
     for entry in st.session_state.added_costs:
-        df = df.append({
+        data.append({
             "Servicio": selected_service,
             "Herramienta": entry['name'],
             "Precio Unitario": f"€{entry['unit_price']:.2f}",
             "Cantidad": entry['quantity'],
             "Costo Total": f"€{entry['total_cost']:.2f}"
-        }, ignore_index=True)
+        })
+    
+    df = pd.DataFrame(data)
 
     
     # Displaying the summary table
