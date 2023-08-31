@@ -1,4 +1,4 @@
-
+a;ejfha;djf;adfja;djfajfaf
 import streamlit as st
 from constants import COSTS_DESCRIPTIONS, COMMERCIAL_TERMS
 from calculations import calculate_cost, generate_word_quote
