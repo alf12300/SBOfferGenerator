@@ -184,7 +184,7 @@ elif tab_selection == "Estimador de Costos":
         col_name, col_unit_price, col_quantity, col_total = st.columns([2, 2, 2, 2])
             
         with col_name:
-        custom_tool_name = st.text_input("Nombre de la herramienta")
+            custom_tool_name = st.text_input("Nombre de la herramienta")
         
         with col_unit_price:
             custom_tool_unit_price = st.number_input("Precio unitario (€)", min_value=0.0, value=0.0, step=0.01, key="unit_custom_tool")
