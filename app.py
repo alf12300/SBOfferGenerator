@@ -241,7 +241,7 @@ elif tab_selection == "Estimador de Costos":
     # Creating an empty DataFrame with the desired columns
     df = pd.DataFrame(columns=["Servicio", "Herramienta", "Precio Unitario", "Cantidad", "Costo Total"])
     
-    # Populating the DataFrame with the data stored in st.session_state.added_costs
+   # Populating the DataFrame with the data stored in st.session_state.added_costs
     for entry in st.session_state.added_costs:
         df = df.append({
             "Servicio": selected_service,
@@ -250,6 +250,7 @@ elif tab_selection == "Estimador de Costos":
             "Cantidad": entry['quantity'],
             "Costo Total": f"€{entry['total_cost']:.2f}"
         }, ignore_index=True)
+
     
     # Displaying the summary table
     st.table(df)
