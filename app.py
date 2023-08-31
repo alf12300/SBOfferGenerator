@@ -225,33 +225,34 @@ elif tab_selection == "Estimador de Costos":
 
     
     # Calculate costs for each tool (including custom ones)
-    tool_costs = {}
+tool_costs = {}
+for tool, inputs in tool_inputs.items():
+    cost = inputs["quantity"] * inputs["unit_price"]
+    tool_costs[tool] = cost
+
+# Calculating the total sum for currently displayed tools (i.e., for the currently selected service)
+total_cost_current_tools = sum(tool_costs.values())
+st.markdown(f"### Costo Total: **€{total_cost_current_tools:.2f}**")
+
+# For services
+if st.button("Agregar al total"):
     for tool, inputs in tool_inputs.items():
+        if inputs["quantity"] == 0:  # Skip tools with 0 quantity
+            continue
         cost = inputs["quantity"] * inputs["unit_price"]
-        tool_costs[tool] = cost
+        
+        # Add these tool costs to session_state
+        st.session_state.added_costs.append({
+            "name": tool,
+            "quantity": inputs["quantity"],
+            "unit_price": inputs["unit_price"],
+            "total_cost": cost
+        })
     
-    
-    # Calculating the total sum for all tools (including custom tool)
+    # Calculating the total sum for all tools (including custom tool) across all services
     total_cost_tools = sum([entry['total_cost'] for entry in st.session_state.added_costs])
     st.markdown(f"### Costo Total: **€{total_cost_tools:.2f}**")
 
-    # For services
-    if st.button("Agregar al total"):
-        for tool, inputs in tool_inputs.items():
-            cost = inputs["quantity"] * inputs["unit_price"]
-            tool_costs[tool] = cost
-        
-            # Add these tool costs to session_state
-            st.session_state.added_costs.append({
-                "name": tool,
-                "quantity": inputs["quantity"],
-                "unit_price": inputs["unit_price"],
-                "total_cost": cost
-            })
-    
-    # Calculating the total sum for all tools (including custom tool)
-    total_cost_tools = sum([entry['total_cost'] for entry in st.session_state.added_costs])
-    st.markdown(f"### Costo Total: **€{total_cost_tools:.2f}**")
     
     st.markdown("### Costos Agregados al Proyecto")
 
