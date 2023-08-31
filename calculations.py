@@ -37,7 +37,7 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     doc = Document()
     
     # Add logo to the top of the document
-    logo_path = "https://github.com/alf12300/SBOfferGenerator/blob/main/logo.jpeg?raw=true"  # Use the logo's filename since it's in the same directory
+    logo_path = "logo.jpeg"  # Use the logo's filename since it's in the same directory
     paragraph = doc.add_paragraph()
     paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT  # Right align the paragraph
     
