@@ -238,6 +238,10 @@ elif tab_selection == "Estimador de Costos":
             })
     
     st.markdown("### Costos Agregados al Proyecto")
+
+    columns = ["Servicio", "Herramienta", "Precio Unitario", "Cantidad", "Costo Total"]
+    df = pd.DataFrame(columns=columns)
+    
     # Creating an empty DataFrame with the desired columns
     df = pd.DataFrame(columns=["Servicio", "Herramienta", "Precio Unitario", "Cantidad", "Costo Total"])
     
