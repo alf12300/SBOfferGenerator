@@ -179,3 +179,14 @@ elif tab_selection == "Estimador de Costos":
     # Button to add the current service's total cost to the job's total
     if st.button("Agregar al total"):
         st.session_state.total_estimated_costs += sum(tool_costs.values())
+
+    # Custom Materials
+    st.markdown("### Materiales Personalizados")
+    custom_material = st.text_input("Nombre del material")
+    custom_quantity = st.number_input("Cantidad", min_value=0, value=0, step=1)
+    custom_unit_price = st.number_input("Precio unitario (€)", min_value=0.0, value=0.0, step=0.01)
+    custom_cost = custom_quantity * custom_unit_price
+    
+    if st.button("Agregar material personalizado al total"):
+        st.session_state.total_estimated_costs += custom_cost
+        st.write(f"Costo para {custom_material}: €{custom_cost:.2f}")
