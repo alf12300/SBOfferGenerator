@@ -160,7 +160,7 @@ elif tab_selection == "Estimador de Costos":
         col_name, col_unit_price, col_quantity, col_total = st.columns([2, 2, 2, 2])
             
         with col_name:
-            st.text("Nombre")
+            st.text("")
             st.write(f"{tool}")
         
         with col_unit_price:
@@ -173,12 +173,7 @@ elif tab_selection == "Estimador de Costos":
         with col_total:
             st.text("Costo Total")
             st.write(f"€{total_for_item:.2f}")
-
-        
-        total_for_item = unit_price * quantity
-        with col_total:
-            st.write(f"€{total_for_item:.2f}")
-        
+            
         tool_inputs[tool] = {"quantity": quantity, "unit_price": unit_price}
 
     # Dictionary to store calculated costs for each tool
@@ -187,6 +182,11 @@ elif tab_selection == "Estimador de Costos":
         cost = inputs["quantity"] * inputs["unit_price"]
         tool_costs[tool] = cost
         st.write(f"Costo total para {tool}: €{cost:.2f}")
+    
+    # Calculating the total sum for all tools
+    total_cost_tools = sum(tool_costs.values())
+    st.markdown(f"### Costo Total: **€{total_cost_tools:.2f}**")
+
 
     # For services
     if st.button("Agregar al total"):
