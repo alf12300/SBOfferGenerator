@@ -229,9 +229,6 @@ elif tab_selection == "Estimador de Costos":
         if tool["name"]:  # only if a name is provided
             tool_inputs[tool["name"]] = {"quantity": tool["quantity"], "unit_price": tool["unit_price"]}
 
-
-
-    
     # Calculate costs for each tool (including custom ones)
     tool_costs = {}
     for tool, inputs in tool_inputs.items():
