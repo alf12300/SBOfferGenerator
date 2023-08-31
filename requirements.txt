@@ -1,4 +1,4 @@
 python-docx
+panda
 streamlit
 Pillow
-panda
