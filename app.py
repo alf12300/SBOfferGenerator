@@ -1,7 +1,7 @@
 
 import streamlit as st
 import pandas as pd
-
+import openpyxl
 from constants import COSTS_DESCRIPTIONS, COMMERCIAL_TERMS
 from calculations import calculate_cost, generate_word_quote
 from PIL import Image
@@ -15,7 +15,7 @@ if "added_services" not in st.session_state:
 # Open the image using PIL
 img = Image.open("logo.jpeg")
 
-clients_df = pd.read_excel("CLIENTS.xlsx")
+clients_df = pd.read_excel("CLIENTS.xlsx", engine='openpyxl')
 
 # Resize the image
 base_width = img.width
