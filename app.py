@@ -16,8 +16,7 @@ if tab_selection == "Generador de Propuestas":
     img = Image.open("logo.jpeg")
     
     clients_df = pd.read_excel("CLIENTS.xlsx")
-    new_clients_data = pd.DataFrame()  # Initialization outside the main Streamlit loop
-    
+      
     # Resize the image
     base_width = img.width
     new_height = 120
@@ -151,8 +150,15 @@ if tab_selection == "Generador de Propuestas":
     
     
 elif tab_selection == "Cost Estimator":
-    with open("app.py", "r") as file:
-        code_content = file.read()
-    st.code(code_content, language='python')
+# Using a container to center content
+    with st.container():
+        # Logo Row
+        col1, col2, col3 = st.columns([6,1,6])
+        col2.image(img_resized, width=new_width)
+    
+    
+    # Title Row
+    spacer_left, title_col, spacer_right = st.columns([1,6,1])
+    title_col.title("Generador de Ofertas")
 
     
