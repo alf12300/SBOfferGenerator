@@ -230,31 +230,28 @@ elif tab_selection == "Estimador de Costos":
         cost = inputs["quantity"] * inputs["unit_price"]
         tool_costs[tool] = cost
     
-    # Add these tool costs to session_state (if not already there)
-    for tool, cost in tool_costs.items():
-        st.session_state.added_costs.append({
-            "name": tool,
-            "quantity": tool_inputs[tool]["quantity"],
-            "unit_price": tool_inputs[tool]["unit_price"],
-            "total_cost": cost
-        })
     
     # Calculating the total sum for all tools (including custom tool)
     total_cost_tools = sum([entry['total_cost'] for entry in st.session_state.added_costs])
     st.markdown(f"### Costo Total: **€{total_cost_tools:.2f}**")
 
-
-
     # For services
     if st.button("Agregar al total"):
-        st.session_state.total_estimated_costs += sum(tool_costs.values())
-        for tool, cost in tool_costs.items():
+        for tool, inputs in tool_inputs.items():
+            cost = inputs["quantity"] * inputs["unit_price"]
+            tool_costs[tool] = cost
+        
+            # Add these tool costs to session_state
             st.session_state.added_costs.append({
                 "name": tool,
-                "quantity": tool_inputs[tool]["quantity"],
-                "unit_price": tool_inputs[tool]["unit_price"],
+                "quantity": inputs["quantity"],
+                "unit_price": inputs["unit_price"],
                 "total_cost": cost
             })
+    
+    # Calculating the total sum for all tools (including custom tool)
+    total_cost_tools = sum([entry['total_cost'] for entry in st.session_state.added_costs])
+    st.markdown(f"### Costo Total: **€{total_cost_tools:.2f}**")
     
     st.markdown("### Costos Agregados al Proyecto")
 
