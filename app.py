@@ -177,13 +177,35 @@ elif tab_selection == "Estimador de Costos":
             
         tool_inputs[tool] = {"quantity": quantity, "unit_price": unit_price}
 
+    if st.button("Agregar Materiales Personalizados"):
+        # If clicked, show input fields for custom tool
+        col_name, col_unit_price, col_quantity, col_total = st.columns([2, 2, 2, 2])
+            
+        with col_name:
+            custom_tool_name = st.text_input("Nombre de la herramienta")
+        
+        with col_unit_price:
+            custom_tool_unit_price = st.number_input("Precio unitario (€)", min_value=0.0, value=0.0, step=0.01, key="unit_custom_tool")
+        
+        with col_quantity:
+            custom_tool_quantity = st.number_input("Cantidad", min_value=0, value=0, step=1, key="qty_custom_tool")
+    
+        custom_tool_total = custom_tool_unit_price * custom_tool_quantity
+        with col_total:
+            st.text("Costo Total")
+            st.write(f"€{custom_tool_total:.2f}")
+
+    tool_inputs[custom_tool_name] = {"quantity": custom_tool_quantity, "unit_price": custom_tool_unit_price}
+
+
+    
     # Dictionary to store calculated costs for each tool
     tool_costs = {}
     for tool, inputs in tool_inputs.items():
         cost = inputs["quantity"] * inputs["unit_price"]
         tool_costs[tool] = cost
-            
-    # Calculating the total sum for all tools
+    
+    # Calculating the total sum for all tools (including custom tool)
     total_cost_tools = sum(tool_costs.values())
     st.markdown(f"### Costo Total: **€{total_cost_tools:.2f}**")
 
