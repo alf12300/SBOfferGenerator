@@ -6,8 +6,12 @@ from calculations import calculate_cost, generate_word_quote
 from PIL import Image
 
 # Set page config
-st.set_page_config(layout="wide")
-
+st.set_page_config(
+    layout="wide",
+    theme={
+        "base": "light"
+    }
+)
 if "added_services" not in st.session_state:
     st.session_state.added_services = []
 
@@ -42,7 +46,7 @@ spacer_col1, col1, col2, spacer_col2 = st.columns([1,3,3,1])
 with col1:
     st.subheader("Datos del cliente")
     client_names = clients_df["NOMBRE"].tolist()
-    selected_client = st.selectbox("Seleccione un cliente:", [""] + client_names)
+    selected_client = st.selectbox("Seleccione o genere un nuevo cliente:", [""] + client_names)
     
     if selected_client:
         client_data = clients_df[clients_df["NOMBRE"] == selected_client].iloc[0]
@@ -58,7 +62,7 @@ with col1:
         address = st.text_input("Dirección:")
         phone = st.text_input("Teléfono:")
 
-        if st.button("Save New Client"):
+        if st.button("Guardar Nuevo Cliente"):
             new_data = {
                 "NOMBRE": [name],  # Using lists to initialize as DataFrame rows
                 "NIF/CIF": [dni],
