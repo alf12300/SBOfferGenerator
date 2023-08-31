@@ -12,6 +12,8 @@ st.set_page_config(layout="wide")
 tab_selection = st.sidebar.radio("Choose a Tab", ["Generador de Propuestas", "Estimador de Costos"])
 
 if tab_selection == "Generador de Propuestas":
+    if "added_services" not in st.session_state:
+        st.session_state.added_services = []
 
     # Open the image using PIL
     img = Image.open("logo.jpeg")
