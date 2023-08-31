@@ -55,3 +55,15 @@ Dirección: Calle Falsa 123, Ciudad, Provincia
 Teléfono: +34 123 456 789
 Email: contacto@remodelacionesxyz.es
 Horario de Atención: Lunes a Viernes de 09:00 a 18:00'''
+
+# Mapping of services to their associated tools
+TOOLS_MAPPING = {
+    'PINTURA EXTERNA': ['Latas de Pintura', 'Brochas', 'Rodillos', 'Cinta de Enmascarar'],
+    'PINTURA INTERNA': ['Latas de Pintura', 'Brochas', 'Rodillos', 'Paños de Caída'],
+    'REFORMA DE BAÑO': ['Azulejos', 'Grifos', 'Cabezal de Ducha', 'Inodoro'],
+    'REFORMA DE COCINA': ['Armarios', 'Encimeras', 'Fregadero', 'Grifo'],
+    'REPARACION DE PUERTA': ['Pomos de Puerta', 'Bisagras', 'Sello de Puerta'],
+    'REPARACION DE VENTANA': ['Paneles de Vidrio', 'Sellos de Ventana', 'Cerraduras'],
+    'REEMPLAZO DE MOBILIARIO': ['Tablones de Madera', 'Clavos/Tornillos', 'Tapicería'],
+}
+
