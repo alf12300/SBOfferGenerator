@@ -158,8 +158,21 @@ elif tab_selection == "Estimador de Costos":
     tool_inputs = {}
     for tool in tools_for_service:
         st.markdown(f"### {tool}")
-        quantity = st.number_input(f"Cantidad de {tool}", min_value=0, value=0, step=1)
-        unit_price = st.number_input(f"Precio unitario de {tool} (€)", min_value=0.0, value=0.0, step=0.01)
+        col_name, col_unit_price, col_quantity, col_total = st.columns([4, 2, 2, 2])
+        
+        with col_name:
+            st.write(f"{tool}")
+        
+        with col_unit_price:
+            unit_price = st.number_input(f"Precio unitario (€)", min_value=0.0, value=0.0, step=0.01, key=f"unit_{tool}")
+        
+        with col_quantity:
+            quantity = st.number_input(f"Cantidad", min_value=0, value=0, step=1, key=f"qty_{tool}")
+        
+        total_for_item = unit_price * quantity
+        with col_total:
+            st.write(f"€{total_for_item:.2f}")
+        
         tool_inputs[tool] = {"quantity": quantity, "unit_price": unit_price}
 
     # Dictionary to store calculated costs for each tool
