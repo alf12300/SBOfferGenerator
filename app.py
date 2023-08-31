@@ -184,7 +184,7 @@ elif tab_selection == "Estimador de Costos":
     custom_tool_unit_price = 0.0
     # Add Custom Tool button
     if st.button("Agregar Herramienta Personalizada"):
-    st.session_state.custom_tools.append({"name": "", "unit_price": 0.0, "quantity": 0})
+        st.session_state.custom_tools.append({"name": "", "unit_price": 0.0, "quantity": 0})
 
 # Display input fields for each tool in custom_tools
     for tool in st.session_state.custom_tools:
