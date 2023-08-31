@@ -15,6 +15,7 @@ if "added_services" not in st.session_state:
 img = Image.open("logo.jpeg")
 
 clients_df = pd.read_excel("CLIENTS.xlsx")
+new_clients_data = pd.DataFrame()  # Initialization outside the main Streamlit loop
 
 # Resize the image
 base_width = img.width
@@ -59,14 +60,17 @@ with col1:
 
         if st.button("Save New Client"):
             new_data = {
-                "NOMBRE": name,
-                "NIF/CIF": dni,
-                "EMAIL": email,
-                "DIRECCION": address,
-                "TELEFONO": phone
+                "NOMBRE": [name],  # Using lists to initialize as DataFrame rows
+                "NIF/CIF": [dni],
+                "EMAIL": [email],
+                "DIRECCION": [address],
+                "TELEFONO": [phone]
             }
-            clients_df = clients_df.append(new_data, ignore_index=True)
-            clients_df.to_excel("CLIENTS.xlsx", index=False)
+            new_client_df = pd.DataFrame(new_data)
+            new_clients_data = pd.concat([new_clients_data, new_client_df], ignore_index=True)
+            
+            final_df = pd.concat([clients_df, new_clients_data], ignore_index=True)
+            final_df.to_excel("CLIENTS.xlsx", index=False)
             st.success("Client details saved successfully!")
 
 
