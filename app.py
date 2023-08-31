@@ -263,9 +263,11 @@ if st.button("Agregar al total"):
     
     df = pd.DataFrame(data)
 
-    
+    # Calculate and display the sum of all total costs
+    total_sum = sum(entry['total_cost'] for entry in st.session_state.added_costs)
+    st.write(f"Suma total de todos los costos: €{total_sum:.2f}")
     # Displaying the summary table
     st.table(df)
     
     # Displaying the total calculated cost at the bottom
-    st.markdown(f"### Costo Total: **€{total_cost_tools:.2f}**")
+    st.markdown(f"### Costo Total: **€{total_sum:.2f}**")
