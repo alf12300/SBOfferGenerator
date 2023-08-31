@@ -41,21 +41,27 @@ spacer_col1, col1, col2, spacer_col2 = st.columns([1,3,3,1])
 with col1:
     st.subheader("Datos del cliente")
     client_names = clients_df["NOMBRE"].tolist()
-    selected_client = st.selectbox("Select a client:", [""] + client_names)
-
-    if selected_client:
-        client_data = clients_df[clients_df["NOMBRE"] == selected_client].iloc[0]
-        name = st.text_input("Nombre:", value=client_data["NOMBRE"])
-        dni = st.text_input("DNI o NIE:", value=client_data["NIF/CIF"])
-        email = st.text_input("Email:", value=client_data["EMAIL"])
-        address = st.text_input("Dirección:", value=client_data["DIRECCION"])
-        phone = st.text_input("Teléfono:", value=str(client_data["TELEFONO"]))
-    else:
+    selected_client = st.selectbox("Seleccione un cliente:", [""] + client_names)
+    if st.checkbox("Add a new client?"):
         name = st.text_input("Nombre:")
         dni = st.text_input("DNI o NIE:")
         email = st.text_input("Email:")
         address = st.text_input("Dirección:")
         phone = st.text_input("Teléfono:")
+    else:    
+        if selected_client:
+            client_data = clients_df[clients_df["NOMBRE"] == selected_client].iloc[0]
+            name = st.text_input("Nombre:", value=client_data["NOMBRE"])
+            dni = st.text_input("DNI o NIE:", value=client_data["NIF/CIF"])
+            email = st.text_input("Email:", value=client_data["EMAIL"])
+            address = st.text_input("Dirección:", value=client_data["DIRECCION"])
+            phone = st.text_input("Teléfono:", value=str(client_data["TELEFONO"]))
+        else:
+            name = st.text_input("Nombre:")
+            dni = st.text_input("DNI o NIE:")
+            email = st.text_input("Email:")
+            address = st.text_input("Dirección:")
+            phone = st.text_input("Teléfono:")
 
 
 # Dictionary to store user input for each service
