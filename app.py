@@ -153,7 +153,7 @@ elif tab_selection == "Estimador de Costos":
     project_name = st.text_input("Nombre del Proyecto:")
 
     # Create two columns: one for dropdown (2/3 of the width) and one for the button (1/3 of the width)    
-    col_dropdown, col_button = st.columns([2, 1])
+    col_dropdown, col_button = st.columns([6, 3])
     # Dropdown for service selection in the left column
     with col_dropdown:
         selected_service = st.selectbox("Seleccione un servicio:", list(COSTS_DESCRIPTIONS.keys()))
@@ -225,8 +225,6 @@ elif tab_selection == "Estimador de Costos":
     # Calculating the total sum for all tools (including custom tool)
     total_cost_tools = sum(tool_costs.values())
     st.markdown(f"### Costo Total: **€{total_cost_tools:.2f}**")
-
-
 
     # For services
     if st.button("Agregar al total"):
