@@ -177,7 +177,8 @@ elif tab_selection == "Estimador de Costos":
             
         tool_inputs[tool] = {"quantity": quantity, "unit_price": unit_price}
 
-    if st.button("Agregar Materiales Personalizados"):
+    # Add Custom Tool button
+    if st.button("Agregar Herramienta Personalizada"):
         # If clicked, show input fields for custom tool
         col_name, col_unit_price, col_quantity, col_total = st.columns([2, 2, 2, 2])
             
@@ -194,6 +195,10 @@ elif tab_selection == "Estimador de Costos":
         with col_total:
             st.text("Costo Total")
             st.write(f"€{custom_tool_total:.2f}")
+
+    # Only add the custom tool if a name is provided
+    if custom_tool_name:
+        tool_inputs[custom_tool_name] = {"quantity": custom_tool_quantity, "unit_price": custom_tool_unit_price}
 
     tool_inputs[custom_tool_name] = {"quantity": custom_tool_quantity, "unit_price": custom_tool_unit_price}
 
