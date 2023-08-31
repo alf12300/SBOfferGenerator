@@ -223,8 +223,9 @@ elif tab_selection == "Estimador de Costos":
         tool_costs[tool] = cost
     
     # Calculating the total sum for all tools (including custom tool)
-    total_cost_tools = sum(tool_costs.values())
+    total_cost_tools = sum([entry['total_cost'] for entry in st.session_state.added_costs])
     st.markdown(f"### Costo Total: **€{total_cost_tools:.2f}**")
+
 
     # For services
     if st.button("Agregar al total"):
