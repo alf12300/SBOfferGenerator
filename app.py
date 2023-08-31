@@ -57,13 +57,13 @@ with col1:
         address = st.text_input("Dirección:")
         phone = st.text_input("Teléfono:")
         if st.button("Save New Client"):
-        new_data = {
-            "NOMBRE": name,
-            "NIF/CIF": dni,
-            "EMAIL": email,
-            "DIRECCION": address,
-            "TELEFONO": phone
-        }
+            new_data = {
+                "NOMBRE": name,
+                "NIF/CIF": dni,
+                "EMAIL": email,
+                "DIRECCION": address,
+                "TELEFONO": phone
+            }
         clients_df = clients_df.append(new_data, ignore_index=True)
         clients_df.to_excel("CLIENTS.xlsx", index=False)
         st.success("Client details saved successfully!")
