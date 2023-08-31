@@ -6,11 +6,6 @@ from calculations import calculate_cost, generate_word_quote
 from PIL import Image
 
 # Set page config
-st.set_page_config(
-    layout="wide"
-)
-
-# Set page config
 st.set_page_config(layout="wide")
 
 # Side Panel Tab Selection
