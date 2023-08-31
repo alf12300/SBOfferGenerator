@@ -153,7 +153,7 @@ elif tab_selection == "Estimador de Costos":
     
     title_col = st.title("Estimador de Costos")
     if "total_estimated_costs" not in st.session_state:
-    st.session_state.total_estimated_costs = 0
+        st.session_state.total_estimated_costs = 0
     
     # Dropdown for service selection
     selected_service = st.selectbox("Seleccione un servicio:", list(COSTS_DESCRIPTIONS.keys()))
