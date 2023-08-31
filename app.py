@@ -178,6 +178,8 @@ elif tab_selection == "Estimador de Costos":
         tool_inputs[tool] = {"quantity": quantity, "unit_price": unit_price}
     # Before the button condition, initialize the variable
     custom_tool_name = ""
+    custom_tool_quantity = 0
+    custom_tool_unit_price = 0.0
     # Add Custom Tool button
     if st.button("Agregar Herramienta Personalizada"):
         # If clicked, show input fields for custom tool
