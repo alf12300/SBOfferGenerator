@@ -11,22 +11,20 @@ st.set_page_config(layout="wide")
 # Side Panel Tab Selection
 tab_selection = st.sidebar.radio("Choose a Tab", ["Generador de Propuestas", "Estimador de Costos"])
 
+# Open the image using PIL
+img = Image.open("logo.jpeg")
 
+clients_df = pd.read_excel("CLIENTS.xlsx")
+  
+# Resize the image
+base_width = img.width
+new_height = 120
+new_width = int((new_height / img.height) * base_width)
+img_resized = img.resize((new_width, new_height))
 
 if tab_selection == "Generador de Propuestas":
     if "added_services" not in st.session_state:
         st.session_state.added_services = []
-
-    # Open the image using PIL
-    img = Image.open("logo.jpeg")
-    
-    clients_df = pd.read_excel("CLIENTS.xlsx")
-      
-    # Resize the image
-    base_width = img.width
-    new_height = 120
-    new_width = int((new_height / img.height) * base_width)
-    img_resized = img.resize((new_width, new_height))
     
     # Using a container to center content
     with st.container():
@@ -153,7 +151,11 @@ elif tab_selection == "Estimador de Costos":
         st.session_state.added_costs = []
         st.session_state._is_rerun = True
 
-    
+    with st.container():
+        # Logo Row
+        col9, col8, col10 = st.columns([6,1,6])
+        col8.image(img_resized, width=new_width)
+        
     title_col = st.title("Estimador de Costos")
     if "total_estimated_costs" not in st.session_state:
         st.session_state.total_estimated_costs = 0
