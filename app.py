@@ -59,22 +59,6 @@ if tab_selection == "Generador de Propuestas":
             address = st.text_input("Dirección:")
             phone = st.text_input("Teléfono:")
     
-            if st.button("Guardar Nuevo Cliente"):
-                new_data = {
-                    "NOMBRE": [name],  # Using lists to initialize as DataFrame rows
-                    "NIF/CIF": [dni],
-                    "EMAIL": [email],
-                    "DIRECCION": [address],
-                    "TELEFONO": [phone]
-                }
-                new_client_df = pd.DataFrame(new_data)
-                new_clients_data = pd.concat([new_clients_data, new_client_df], ignore_index=True)
-                
-                final_df = pd.concat([clients_df, new_clients_data], ignore_index=True)
-                final_df.to_excel("CLIENTS.xlsx", index=False)
-                st.success("Client details saved successfully!")
-    
-    
     # Dictionary to store user input for each service
     user_inputs = {}
     
