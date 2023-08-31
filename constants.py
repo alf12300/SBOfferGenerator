@@ -58,12 +58,12 @@ Horario de Atención: Lunes a Viernes de 09:00 a 18:00'''
 
 # Mapping of services to their associated tools
 TOOLS_MAPPING = {
-    'PINTURA EXTERNA': ['Latas de Pintura', 'Brochas', 'Rodillos', 'Cinta de Enmascarar'],
-    'PINTURA INTERNA': ['Latas de Pintura', 'Brochas', 'Rodillos', 'Paños de Caída'],
-    'REFORMA DE BAÑO': ['Azulejos', 'Grifos', 'Cabezal de Ducha', 'Inodoro'],
-    'REFORMA DE COCINA': ['Armarios', 'Encimeras', 'Fregadero', 'Grifo'],
-    'REPARACION DE PUERTA': ['Pomos de Puerta', 'Bisagras', 'Sello de Puerta'],
-    'REPARACION DE VENTANA': ['Paneles de Vidrio', 'Sellos de Ventana', 'Cerraduras'],
-    'REEMPLAZO DE MOBILIARIO': ['Tablones de Madera', 'Clavos/Tornillos', 'Tapicería'],
+    'Pintura Externa': ['Latas de Pintura', 'Brochas', 'Rodillos', 'Cinta de Enmascarar'],
+    'Pintura Interna': ['Latas de Pintura', 'Brochas', 'Rodillos', 'Paños de Caída'],
+    'Reforma de Baño': ['Azulejos', 'Grifos', 'Cabezal de Ducha', 'Inodoro'],
+    'Reforma de Cocina': ['Armarios', 'Encimeras', 'Fregadero', 'Grifo'],
+    'Reparación de Puerta': ['Pomos de Puerta', 'Bisagras', 'Sello de Puerta'],
+    'Reparacion de Ventana': ['Paneles de Vidrio', 'Sellos de Ventana', 'Cerraduras'],
+    'Reemplazo de Mobiliario': ['Tablones de Madera', 'Clavos/Tornillos', 'Tapicería'],
 }
 
