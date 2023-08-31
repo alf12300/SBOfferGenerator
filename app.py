@@ -251,6 +251,7 @@ elif tab_selection == "Estimador de Costos":
             
             # Add these tool costs to session_state
             st.session_state.added_costs.append({
+                "service": selected_service,  # Add the service name here
                 "name": tool,
                 "quantity": inputs["quantity"],
                 "unit_price": inputs["unit_price"],
