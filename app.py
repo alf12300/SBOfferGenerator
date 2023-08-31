@@ -88,7 +88,7 @@ with col2:
     selected_service = st.selectbox("Seleccione un servicio:", service_options)
     
     details = COSTS_DESCRIPTIONS[selected_service]
-    user_inputs[f"{selected_service}_description"] = st.text_area("Descripción:", value=details['description'], height=160)
+    user_inputs[f"{selected_service}_description"] = st.text_area("Descripción:", value=details['description'], height=170)
 
     
     # Unit Cost
