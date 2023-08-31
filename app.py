@@ -143,6 +143,8 @@ if tab_selection == "Generador de Propuestas":
 elif tab_selection == "Estimador de Costos":
     if "added_costs" not in st.session_state:
         st.session_state.added_costs = []
+    if "custom_tools" not in st.session_state:
+        st.session_state.custom_tools = []
     
     title_col = st.title("Estimador de Costos")
     if "total_estimated_costs" not in st.session_state:
@@ -182,22 +184,25 @@ elif tab_selection == "Estimador de Costos":
     custom_tool_unit_price = 0.0
     # Add Custom Tool button
     if st.button("Agregar Herramienta Personalizada"):
-        # If clicked, show input fields for custom tool
+    st.session_state.custom_tools.append({"name": "", "unit_price": 0.0, "quantity": 0})
+
+# Display input fields for each tool in custom_tools
+    for tool in st.session_state.custom_tools:
         col_name, col_unit_price, col_quantity, col_total = st.columns([2, 2, 2, 2])
-            
+        
         with col_name:
-            custom_tool_name = st.text_input("Nombre de la herramienta")
+            tool["name"] = st.text_input("Nombre de la herramienta", value=tool["name"])
         
         with col_unit_price:
-            custom_tool_unit_price = st.number_input("Precio unitario (€)", min_value=0.0, value=0.0, step=0.01, key="unit_custom_tool")
+            tool["unit_price"] = st.number_input("Precio unitario (€)", min_value=0.0, value=tool["unit_price"], step=0.01)
         
         with col_quantity:
-            custom_tool_quantity = st.number_input("Cantidad", min_value=0, value=0, step=1, key="qty_custom_tool")
-    
-        custom_tool_total = custom_tool_unit_price * custom_tool_quantity
+            tool["quantity"] = st.number_input("Cantidad", min_value=0, value=tool["quantity"], step=1)
+        
+        total_for_tool = tool["unit_price"] * tool["quantity"]
         with col_total:
             st.text("Costo Total")
-            st.write(f"€{custom_tool_total:.2f}")
+            st.write(f"€{total_for_tool:.2f}")
 
     # Only add the custom tool if a name is provided
     if custom_tool_name:
