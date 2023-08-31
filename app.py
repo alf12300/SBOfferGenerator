@@ -56,6 +56,7 @@ with col1:
         email = st.text_input("Email:")
         address = st.text_input("Dirección:")
         phone = st.text_input("Teléfono:")
+
         if st.button("Save New Client"):
             new_data = {
                 "NOMBRE": name,
@@ -64,9 +65,10 @@ with col1:
                 "DIRECCION": address,
                 "TELEFONO": phone
             }
-        clients_df = clients_df.append(new_data, ignore_index=True)
-        clients_df.to_excel("CLIENTS.xlsx", index=False)
-        st.success("Client details saved successfully!")
+            clients_df = clients_df.append(new_data, ignore_index=True)
+            clients_df.to_excel("CLIENTS.xlsx", index=False)
+            st.success("Client details saved successfully!")
+
 
 # Dictionary to store user input for each service
 user_inputs = {}
