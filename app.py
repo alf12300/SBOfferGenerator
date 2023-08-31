@@ -151,6 +151,8 @@ if tab_selection == "Generador de Propuestas":
     
     
 elif tab_selection == "Estimador de Costos":
+    if "added_costs" not in st.session_state:
+        st.session_state.added_costs = []
     
     title_col = st.title("Estimador de Costos")
     if "total_estimated_costs" not in st.session_state:
@@ -177,9 +179,16 @@ elif tab_selection == "Estimador de Costos":
         tool_costs[tool] = cost
         st.write(f"Costo total para {tool}: €{cost:.2f}")
 
-    # Button to add the current service's total cost to the job's total
+    # For services
     if st.button("Agregar al total"):
         st.session_state.total_estimated_costs += sum(tool_costs.values())
+        for tool, cost in tool_costs.items():
+            st.session_state.added_costs.append({
+                "name": tool,
+                "quantity": tool_inputs[tool]["quantity"],
+                "unit_price": tool_inputs[tool]["unit_price"],
+                "total_cost": cost
+            })
 
     # Custom Materials
     st.markdown("### Materiales Personalizados")
@@ -188,6 +197,16 @@ elif tab_selection == "Estimador de Costos":
     custom_unit_price = st.number_input("Precio unitario (€)", min_value=0.0, value=0.0, step=0.01)
     custom_cost = custom_quantity * custom_unit_price
     
+# For custom materials
     if st.button("Agregar material personalizado al total"):
         st.session_state.total_estimated_costs += custom_cost
-        st.write(f"Costo para {custom_material}: €{custom_cost:.2f}")
+        st.session_state.added_costs.append({
+            "name": custom_material,
+            "quantity": custom_quantity,
+            "unit_price": custom_unit_price,
+            "total_cost": custom_cost
+        })
+
+    st.markdown("### Costos Agregados al Proyecto")
+    for entry in st.session_state.added_costs:
+        st.write(f"{entry['name']} (Cantidad: {entry['quantity']}, Precio unitario: €{entry['unit_price']:.2f}): €{entry['total_cost']:.2f}")
