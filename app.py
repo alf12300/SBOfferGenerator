@@ -154,9 +154,17 @@ elif tab_selection == "Estimador de Costos":
 
     # Create two columns: one for dropdown (2/3 of the width) and one for the button (1/3 of the width)    
     col_dropdown, col_button = st.columns([10, 2])
+    
     # Dropdown for service selection in the left column
+    all_services = list(COSTS_DESCRIPTIONS.keys()) + ["Other (Custom)"]
     with col_dropdown:
-        selected_service = st.selectbox("Seleccione un servicio:", list(COSTS_DESCRIPTIONS.keys()))
+        selected_service = st.selectbox("Seleccione un servicio:", all_services)
+    
+        if selected_service == "Other (Custom)":
+            custom_service_name = st.text_input("Ingrese el nombre del servicio personalizado:")
+    
+            # You can now use the custom_service_name variable in place of selected_service
+            selected_service = custom_service_name if custom_service_name else "Other (Custom)"
     
     # Add Custom Tool button in the right column
     with col_button:
