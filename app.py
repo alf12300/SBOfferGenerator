@@ -238,23 +238,6 @@ elif tab_selection == "Estimador de Costos":
                 "total_cost": cost
             })
 
-    # Custom Materials
-    st.markdown("### Materiales Personalizados")
-    custom_material = st.text_input("Nombre del material")
-    custom_quantity = st.number_input("Cantidad", min_value=0, value=0, step=1)
-    custom_unit_price = st.number_input("Precio unitario (€)", min_value=0.0, value=0.0, step=0.01)
-    custom_cost = custom_quantity * custom_unit_price
-    
-# For custom materials
-    if st.button("Agregar material personalizado al total"):
-        st.session_state.total_estimated_costs += custom_cost
-        st.session_state.added_costs.append({
-            "name": custom_material,
-            "quantity": custom_quantity,
-            "unit_price": custom_unit_price,
-            "total_cost": custom_cost
-        })
-
-    st.markdown("### Costos Agregados al Proyecto")
+  st.markdown("### Costos Agregados al Proyecto")
     for entry in st.session_state.added_costs:
         st.write(f"{entry['name']} (Cantidad: {entry['quantity']}, Precio unitario: €{entry['unit_price']:.2f}): €{entry['total_cost']:.2f}")
