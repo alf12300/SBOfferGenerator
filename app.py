@@ -3,6 +3,7 @@ import streamlit as st
 from constants import COSTS_DESCRIPTIONS, COMMERCIAL_TERMS
 from calculations import calculate_cost, generate_word_quote
 from PIL import Image
+import panda as pd
 
 # Set page config
 st.set_page_config(layout="wide")
