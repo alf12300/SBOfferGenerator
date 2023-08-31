@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 from constants import COSTS_DESCRIPTIONS, COMMERCIAL_TERMS
@@ -9,14 +8,10 @@ from PIL import Image
 st.set_page_config(layout="wide")
 
 # Side Panel Tab Selection
-tab_selection = st.sidebar.radio("Choose a Tab", ["Offer Generator Code", "Cost Estimator"])
+tab_selection = st.sidebar.radio("Choose a Tab", ["Generador de Propuestas", "Estimador de Costos"])
 
-if tab_selection == "Offer Generator Code":
-    with open("app.py", "r") as file:
-        code_content = file.read()
-    st.code(code_content, language='python')
+if tab_selection == "Generador de Propuestas":
 
-elif tab_selection == "Cost Estimator":
     # Open the image using PIL
     img = Image.open("logo.jpeg")
     
@@ -169,4 +164,11 @@ elif tab_selection == "Cost Estimator":
         # Logo Row
         colspc, collogo, col2spc= st.columns([6,1,6])
         collogo.image(img_resized, width=new_width)
+    
+    
+elif tab_selection == "Cost Estimator":
+    with open("app.py", "r") as file:
+        code_content = file.read()
+    st.code(code_content, language='python')
+
     
