@@ -152,10 +152,10 @@ elif tab_selection == "Estimador de Costos":
     
     # Dropdown for service selection
     selected_service = st.selectbox("Seleccione un servicio:", list(COSTS_DESCRIPTIONS.keys()))
-
+    
     # Retrieve tools for the selected service
     tools_for_service = TOOLS_MAPPING.get(selected_service, [])
-
+    
     # Dictionary to store user inputs for each tool
     tool_inputs = {}
     
@@ -178,14 +178,11 @@ elif tab_selection == "Estimador de Costos":
             st.write(f"€{total_for_item:.2f}")
             
         tool_inputs[tool] = {"quantity": quantity, "unit_price": unit_price}
-    # Before the button condition, initialize the variable
-    custom_tool_name = ""
-    custom_tool_quantity = 0
-    custom_tool_unit_price = 0.0
+    
     # Add Custom Tool button
     if st.button("Agregar Herramienta Personalizada"):
         st.session_state.custom_tools.append({"name": "", "unit_price": 0.0, "quantity": 0})
-
+    
     # Display input fields for each tool in custom_tools
     for idx, tool in enumerate(st.session_state.custom_tools):
         col_name, col_unit_price, col_quantity, col_total = st.columns([2, 2, 2, 2])
@@ -203,17 +200,12 @@ elif tab_selection == "Estimador de Costos":
         with col_total:
             st.text("Costo Total")
             st.write(f"€{total_for_tool:.2f}")
-
-
-    # Only add the custom tool if a name is provided
-    if custom_tool_name:
-        tool_inputs[custom_tool_name] = {"quantity": custom_tool_quantity, "unit_price": custom_tool_unit_price}
-
-    tool_inputs[custom_tool_name] = {"quantity": custom_tool_quantity, "unit_price": custom_tool_unit_price}
-
-
+        
+        # Add custom tool costs to tool_inputs
+        if tool["name"]:  # only if a name is provided
+            tool_inputs[tool["name"]] = {"quantity": tool["quantity"], "unit_price": tool["unit_price"]}
     
-    # Dictionary to store calculated costs for each tool
+    # Calculate costs for each tool (including custom ones)
     tool_costs = {}
     for tool, inputs in tool_inputs.items():
         cost = inputs["quantity"] * inputs["unit_price"]
@@ -222,6 +214,7 @@ elif tab_selection == "Estimador de Costos":
     # Calculating the total sum for all tools (including custom tool)
     total_cost_tools = sum(tool_costs.values())
     st.markdown(f"### Costo Total: **€{total_cost_tools:.2f}**")
+
 
 
     # For services
