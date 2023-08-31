@@ -11,6 +11,8 @@ st.set_page_config(layout="wide")
 # Side Panel Tab Selection
 tab_selection = st.sidebar.radio("Choose a Tab", ["Generador de Propuestas", "Estimador de Costos"])
 
+
+
 if tab_selection == "Generador de Propuestas":
     if "added_services" not in st.session_state:
         st.session_state.added_services = []
@@ -145,6 +147,12 @@ elif tab_selection == "Estimador de Costos":
         st.session_state.added_costs = []
     if "custom_tools" not in st.session_state:
         st.session_state.custom_tools = []
+    # Check if the app is rerun, if not then initialize session state variables
+    if not st.session_state.get('_is_rerun'):
+        st.session_state.added_services = []
+        st.session_state.added_costs = []
+        st.session_state._is_rerun = True
+
     
     title_col = st.title("Estimador de Costos")
     if "total_estimated_costs" not in st.session_state:
