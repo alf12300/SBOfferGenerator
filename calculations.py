@@ -116,7 +116,7 @@ def generate_word_quote(name, dni, email, address, phone, quote_number, project_
 
     # Cell 1-a
     cell_1a = table.cell(0, 0)
-    p = cell_1a.add_paragraph("Presupuesto")
+    p = cell_1a.add_paragraph("PRESUPUESTO")
     for run in p.runs:
         run.bold = True
         run.font.size = Pt(18)  # Make the font size larger
@@ -154,6 +154,9 @@ def generate_word_quote(name, dni, email, address, phone, quote_number, project_
     # Adding the two lines
     cell_2b.add_paragraph("info@sbreformas-madrid.com")
     cell_2b.add_paragraph("Tlf: + 34 611 570 820 / + 34 637 845 816")
+    # Getting the current date
+    current_date = datetime.date.today().strftime("%d-%m-%Y")  # format: day-month-year
+    cell_2b.add_paragraph(current_date)
     
     # Cell 3-a
     cell_3a = table.cell(2, 0)
