@@ -45,6 +45,28 @@ def set_cell_border(cell, **kwargs):
                 if key in edge_data:
                     element.set(qn('w:{}'.format(key)), str(edge_data[key]))
 
+def set_font_and_color(doc):
+    # Define the RGB values for dark blue color
+    fontcolor = RGBColor(0, 0, 0)
+
+    # Iterate through all paragraphs
+    for paragraph in doc.paragraphs:
+        # For each paragraph, iterate through all runs
+        for run in paragraph.runs:
+            # Set the font color of each run to dark blue
+            run.font.color.rgb = fontcolor
+            # Set the font family to Montserrat
+            run.font.name = 'Montserrat'
+
+    # Iterate through all tables and their cells
+    for table in doc.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                for paragraph in cell.paragraphs:
+                    for run in paragraph.runs:
+                        run.font.color.rgb = fontcolor
+                        run.font.name = 'Montserrat'
+
 def add_bold_before_colon(doc, text, font_size=None):
     # Split the text at the colon
     parts = text.split(':', 1)
