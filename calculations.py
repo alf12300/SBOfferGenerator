@@ -42,37 +42,25 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     # Create a table with 3 rows and 2 columns for the top section
     table = doc.add_table(rows=3, cols=2)
     table.style = 'Table Grid'
-    #for section in table._element.xpath('.//w:tblGrid/w:gridCol'):
-    #    section.set(qn('w:w'), str(int(8.5 * Cm(1))))  # Set column width to 8.5 cm for both columns
 
-
-    # Set the table borders to invisible
+        # Set the table borders to invisible
     for row in table.rows:
         for cell in row.cells:
             for paragraph in cell.paragraphs:
                 for run in paragraph.runs:
                     run.font.size = Pt(12)  # Set default font size
-            #cell._element.clear_content()  # Clear default table content
+            
+            cell._element.get_or_add_tcPr().append(parse_xml(r'<w:shd {} w:fill="FFFFFF"/>'.format(nsdecls('w'))))
+            
+            # Set cell borders to white
+            borders = cell._element.get_or_add_tcPr().get_or_add_tcBorders()
+            for border in borders:
+                border.attrib.clear()
+                border.set(qn('w:val'), 'single')
+                border.set(qn('w:sz'), '12')  # size of the border
+                border.set(qn('w:space'), '0')
+                border.set(qn('w:color'), 'FFFFFF')  # Set color to white
 
-            # Set borders of the cell to invisible
-            for side in cell._tc.tcPr.xpath('w:tcBorders/*'):
-                side.attrib.clear()
-                side.set(qn('w:val'), 'none')
-
-    for row in table.rows:
-        for cell in row.cells:
-            cell._tc.get_or_add_tcPr().append(parse_xml(r'<w:shd {} w:fill="FFFFFF"/>'.format(nsdecls('w'))))
-    
-    # Set external borders of the table to white
-    white_border = RGBColor(255, 255, 255)
-    table_style = table.style
-    tbl_borders = table_style._element.get_or_add_tblPr().get_or_add_tblBorders()
-    for border in tbl_borders:
-        border.attrib.clear()
-        border.set(qn('w:val'), 'single')
-        border.set(qn('w:sz'), '12')  # size of the border
-        border.set(qn('w:space'), '0')
-        border.set(qn('w:color'), white_border.hexval[2:])
     
     # Populate the table cells as per given specification
 
