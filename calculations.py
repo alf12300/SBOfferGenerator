@@ -89,7 +89,7 @@ def add_bold_before_colon(doc, text, font_size=None):
             for run in p.runs:
                 run.font.size = Pt(font_size)
 
-def generate_word_quote(name, dni, email, address, phone, quote_number, project_description, selected_services, total_cost):
+def generate_word_quote(name, dni, email, address, phone, quote_number, project_description, selected_services, total_cost, duration=None):
     doc = Document()
     
     # Create a table with 3 rows and 2 columns for the top section
@@ -233,7 +233,11 @@ def generate_word_quote(name, dni, email, address, phone, quote_number, project_
         value_cell = row.cells[-1]  # Using the last cell for the value
         value_cell.text = value
         value_cell.paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
-
+    
+    # Duration of the job
+    if duration:  # Check if the duration is provided and not empty
+        doc.add_paragraph(f"Duración estimada de los trabajos: {duration}")
+    
     # Terms
     doc.add_paragraph(COMMERCIAL_TERMS)
 
