@@ -45,10 +45,7 @@ def set_cell_border(cell, **kwargs):
                 if key in edge_data:
                     element.set(qn('w:{}'.format(key)), str(edge_data[key]))
 
-def set_font_color_to_blue(doc_path):
-    # Open the Word document
-    doc = Document(doc_path)
-
+def set_font_color_to_blue(doc):
     # Define the RGB values for dark blue color
     dark_blue = RGBColor(0, 0, 139)
 
@@ -58,9 +55,6 @@ def set_font_color_to_blue(doc_path):
         for run in paragraph.runs:
             # Set the font color of each run to dark blue
             run.font.color.rgb = dark_blue
-
-    # Save the modified document
-    doc.save(doc_path)
             
 def add_bold_before_colon(doc, text, font_size=None):
     # Split the text at the colon
@@ -234,6 +228,12 @@ def generate_word_quote(name, dni, email, address, phone, quote_number, project_
 
     # Save the document
     file_path = f"quote_{name.replace(' ', '_')}.docx"
+    doc.save(file_path)
+    
+    # Set the font color of the saved document to dark blue
+    set_font_color_to_blue(doc)
+
+    # Save the document again after changing font color
     doc.save(file_path)
 
     return file_path
