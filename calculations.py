@@ -208,7 +208,7 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
 
     # Terms
     doc.add_paragraph("Términos y condiciones:")
-    doc.add_paragraph("XXXX")  # Placeholder for actual terms
+    doc.add_paragraph(COMMERCIAL_TERMS)
 
     # Footer
     footer = doc.sections[0].footer
