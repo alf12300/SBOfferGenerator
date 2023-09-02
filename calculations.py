@@ -135,14 +135,12 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
         for run in hdr_cells[idx].paragraphs[0].runs:
             run.font.color.rgb = RGBColor(255, 255, 255)  # White font color
 
-    # Setting all table borders to be dark blue
     for row in service_table.rows:
         for cell in row.cells:
-            tcPr = cell._tc.get_or_add_tcPr()
-            tcBorders = parse_xml(r'<w:tcBorders xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:top w:val="single"/><w:left w:val="single"/><w:bottom w:val="single"/><w:right w:val="single"/></w:tcBorders>')
-            tcPr.append(tcBorders)
-            for border in tcBorders:
-                border.set(qn('w:color'), dark_blue.hexval[2:])
+            cell_borders = cell.borders
+            for border in [cell_borders.top, cell_borders.bottom, cell_borders.left, cell_borders.right]:
+                border.color = dark_blue
+
 
     for idx, service in enumerate(selected_services):
         cells = service_table.add_row().cells
