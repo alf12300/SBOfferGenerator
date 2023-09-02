@@ -51,7 +51,9 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
                     run.font.size = Pt(12)  # Set default font size
             
             # Remove shading (background color) from cells
-            cell._element.get_or_add_tcPr().append(parse_xml(r'<w:shd {} w:fill="auto"/>'.format(nsdecls('w'))))
+            shading_element = parse_xml(r'<w:shd {} w:fill="auto"/>'.format(nsdecls('w')))
+            cell._element.get_or_add_tcPr().get_or_add_shd().clear_content()
+            cell._element.get_or_add_tcPr().get_or_add_shd().append(shading_element)
             
             # Remove cell borders
             tcPr = cell._element.get_or_add_tcPr()
@@ -59,7 +61,8 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
             for border in ['top', 'left', 'bottom', 'right']:
                 element = tcBorders.find(qn('w:' + border))
                 if element is not None:
-                    element.set(qn('w:val'), 'none')
+                    element.clear_content()
+
     
     # Populate the table cells as per given specification
 
