@@ -167,7 +167,7 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
 
     # Adjusting column widths
     total_width = sum(col_widths.values())
-    table_width = Cm(17.0)  # Assuming a default table width, you can adjust this value as needed
+    table_width = Cm(10.0)  # Assuming a default table width, you can adjust this value as needed
     col_widths[1] = table_width - (total_width - col_widths[1])
     
     for idx, width in col_widths.items():
