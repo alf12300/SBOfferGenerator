@@ -226,13 +226,9 @@ def generate_word_quote(name, dni, email, address, phone, quote_number, project_
     p.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
     p.add_run("SB Reformas Madrid. Paseo de la Chopera, 51. 28045, Madrid. Página web: www.sbreformas-madrid.com - Instagram: @sbreformasmadrid")  # Footer text
 
-    # Set the font color of the entire document to dark blue
-    set_font_color_to_blue(doc)
-    
-    # ... rest of your content generation code ...
-    
     # Save the document
     file_path = f"quote_{name.replace(' ', '_')}.docx"
+    set_font_color_to_blue(doc)
     doc.save(file_path)
     
     return file_path
