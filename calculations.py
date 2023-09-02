@@ -82,7 +82,8 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
         "Sandra Badillo Fonseca",
         "NIE Y9072864-E",
         "Paseo de la Chopera, 51",
-        "28045, Madrid"
+        "28045, Madrid",
+        ""
     ]
     # Clear the default empty paragraph and use the first one for the first detail
     cell_2a.text = company_details[0]
