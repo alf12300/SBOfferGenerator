@@ -72,15 +72,16 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     # Add the picture directly to the cell's paragraph and set the height
     r = cell_1b.add_paragraph().add_run()
     r.add_picture(logo_path, height=Pt(60))
+    cell_1b.paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
     
     # Cell 2-a
     cell_2a = table.cell(1, 0)
     company_details = [
-        "",
         "Sandra Badillo Fonseca",
         "NIE Y9072864-E",
         "Paseo de la Chopera, 51",
         "28045, Madrid"
+        ""
     ]
     for detail in company_details:
         cell_2a.add_paragraph(detail)
