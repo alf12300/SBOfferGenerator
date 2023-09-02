@@ -34,16 +34,15 @@ if tab_selection == "Generador de Propuestas":
     
     
     # Title Row
-
-    colDETAILS, colDETAILS2= st.columns([8,4])
+    st.title("Generador de Ofertas")
+    colDETAILS, colDETAILS2= st.columns([6,6])
     # Text input for project description
     with colDETAILS:
-        st.title("Generador de Ofertas")      
+        project_description = st.text_input("Descripción del Proyecto:")          
 
     with colDETAILS2:
         quoteNumber = st.text_input("Número de Presupuesto:")   
-      
-    project_description = st.text_input("Descripción del Proyecto:")  
+          
   # Create spacer and main columns for the top row
     col1, col2= st.columns([6,6])
     
