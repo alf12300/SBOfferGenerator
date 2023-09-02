@@ -52,11 +52,12 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
                     run.font.size = Pt(12)  # Set default font size
             
             # Set borders of the cell to none (invisible)
-            cell_borders = cell.borders
-            cell_borders.top = None
-            cell_borders.left = None
-            cell_borders.bottom = None
-            cell_borders.right = None
+            tcPr = cell._element.get_or_add_tcPr()
+            tcBorders = tcPr.get_or_add_tcBorders()
+            for border in ['top', 'left', 'bottom', 'right']:
+                element = tcBorders.find(qn('w:' + border))
+                if element is not None:
+                    element.set(qn('w:val'), 'none')
     
     # Populate the table cells as per given specification
 
