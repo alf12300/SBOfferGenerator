@@ -190,10 +190,21 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     iva = total_cost * 0.21
     final_total = total_cost + iva
 
-    # Aligning specified items to the right of the page
-    for text in [f"Total: €{total_cost:.2f}", f"IVA (21%): €{iva:.2f}", f"Total Final: €{final_total:.2f}"]:
-        p = doc.add_paragraph(text)
-        p.alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
+    # After adding service rows
+    totals = [
+        ("Total", f"€{total_cost:.2f}"),
+        ("IVA (21%)", f"€{iva:.2f}"),
+        ("Total Final", f"€{final_total:.2f}")
+    ]
+    
+    for name, value in totals:
+        row = service_table.add_row()
+        name_cell = row.cells[0].merge(row.cells[3])  # Merging the first 4 cells
+        name_cell.text = name
+        name_cell.paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
+        value_cell = row.cells[-1]  # Using the last cell for the value
+        value_cell.text = value
+        value_cell.paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
 
     # Terms
     doc.add_paragraph("Términos y condiciones:")
