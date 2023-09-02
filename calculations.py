@@ -55,6 +55,14 @@ def set_font_color_to_blue(doc):
         for run in paragraph.runs:
             # Set the font color of each run to dark blue
             run.font.color.rgb = dark_blue
+
+    # Iterate through all tables and their cells
+    for table in doc.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                for paragraph in cell.paragraphs:
+                    for run in paragraph.runs:
+                        run.font.color.rgb = dark_blue
             
 def add_bold_before_colon(doc, text, font_size=None):
     # Split the text at the colon
