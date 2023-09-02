@@ -54,7 +54,7 @@ def set_font_and_color(doc):
         # For each paragraph, iterate through all runs
         for run in paragraph.runs:
             # Set the font color of each run to dark blue
-            run.font.color.rgb = fontcolor
+            #run.font.color.rgb = fontcolor - ENABLE THIS TO CHANGE FONT COLOR
             # Set the font family to Montserrat
             run.font.name = 'Montserrat'
 
@@ -64,7 +64,7 @@ def set_font_and_color(doc):
             for cell in row.cells:
                 for paragraph in cell.paragraphs:
                     for run in paragraph.runs:
-                        run.font.color.rgb = fontcolor
+                        #run.font.color.rgb = fontcolor - ENABLE THIS TO CHANGE FONT COLOR
                         run.font.name = 'Montserrat'
 
 def add_bold_before_colon(doc, text, font_size=None):
