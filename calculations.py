@@ -70,9 +70,11 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     logo_path = "logo.jpeg"  # Use the logo's filename since it's in the same directory
     
     # Add the picture directly to the cell's paragraph and set the height
-    r = cell_1b.add_paragraph().add_run()
+    paragraph = cell_1b.add_paragraph()
+    r = paragraph.add_run()
     r.add_picture(logo_path, height=Pt(60))
-    cell_1b.paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+    paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+
     
     # Cell 2-a
     cell_2a = table.cell(1, 0)
