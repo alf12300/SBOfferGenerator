@@ -68,7 +68,7 @@ def add_bold_before_colon(doc, text, font_size=None):
             for run in p.runs:
                 run.font.size = Pt(font_size)
 
-def generate_word_quote(name, dni, email, address, phone, selected_services, total_cost):
+def generate_word_quote(name, dni, email, address, phone, quote_number, project_description, selected_services, total_cost):
     doc = Document()
     
     # Create a table with 3 rows and 2 columns for the top section
