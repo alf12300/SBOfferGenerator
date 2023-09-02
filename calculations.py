@@ -154,11 +154,11 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
 
     # Define column widths
     col_widths = {
-        0: Cm(1.5),  # Column 1
+        0: Cm(8),  # Column 1
         1: Cm(8.0),  # Column 2 (will be adjusted later)
-        2: Cm(2.0),  # Column 3
-        3: Cm(2.5),  # Column 4
-        4: Cm(2.5)   # Column 5
+        2: Cm(8.0),  # Column 3
+        3: Cm(8.5),  # Column 4
+        4: Cm(8.5)   # Column 5
     }
     
     # Table with services
