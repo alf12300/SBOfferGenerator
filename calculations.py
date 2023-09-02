@@ -50,12 +50,13 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
             for paragraph in cell.paragraphs:
                 for run in paragraph.runs:
                     run.font.size = Pt(12)  # Set default font size
-
+            
             # Set borders of the cell to none (invisible)
-            cell_borders = cell._tc.tcPr.tcBorders
-            for border in [cell_borders.top, cell_borders.left, cell_borders.bottom, cell_borders.right]:
-                border.val = None
-
+            cell_borders = cell.borders
+            cell_borders.top = None
+            cell_borders.left = None
+            cell_borders.bottom = None
+            cell_borders.right = None
     
     # Populate the table cells as per given specification
 
