@@ -5,6 +5,7 @@ from docx.enum.text import WD_PARAGRAPH_ALIGNMENT  # Import alignment utility
 from docx.oxml.ns import qn
 from docx.oxml import parse_xml
 from docx.oxml.ns import nsdecls
+from docx.shared import RGBColor
 from datetime import datetime
 
 def calculate_cost(added_services):
