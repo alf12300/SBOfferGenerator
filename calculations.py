@@ -165,11 +165,6 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     
     hdr_cells = service_table.rows[0].cells
 
-   
-    for idx, width in col_widths.items():
-        for cell in service_table.column_cells(idx):
-            cell.width = width
-
     headers = ["Item", "Descripción", "Cantidad", "Precio", "Total"]
     for idx, header in enumerate(headers):
         cell_paragraph = hdr_cells[idx].paragraphs[0]
