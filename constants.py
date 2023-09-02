@@ -1,32 +1,31 @@
-# Service reference costs and descriptions
 COSTS_DESCRIPTIONS = {
     'Pintura Externa': {
         'cost': 350,  # cost per square meter
-        'description': 'Pintura de grado premium resistente al clima, ideal para superficies exteriores. Formulada para durabilidad contra diversas condiciones climáticas, garantizando la retención del color y resistencia al descascarillado. Proporciona un acabado suave con adhesión superior.'
+        'description': 'Pintura exterior premium resistente al clima con adhesión y durabilidad superiores.'
     },
     'Pintura Interna': {
         'cost': 200,  # cost per square meter
-        'description': 'Pintura de alta calidad diseñada para superficies interiores. Ofrece un acabado suave y uniforme con excelente adhesión. El bajo contenido de VOC garantiza un mínimo impacto ambiental y mantiene una calidad de aire interior segura.'
+        'description': 'Pintura interior de alta calidad con acabado uniforme y bajo impacto ambiental.'
     },
     'Reforma de Baño': {
         'cost': 650,  # cost per bathroom
-        'description': 'Servicio de renovación para baños, incluyendo modernización de instalaciones, optimización del espacio y acabados de alta calidad para garantizar durabilidad y estética.'
+        'description': 'Renovación completa del baño con acabados y optimizaciones modernas.'
     },
     'Reforma de Cocina': {
         'cost': 1500,  # cost per kitchen
-        'description': 'Transformación completa de cocinas, adaptando espacios a las necesidades actuales, incorporando soluciones de almacenamiento innovadoras y seleccionando materiales de la más alta calidad para un resultado excepcional y duradero.'
+        'description': 'Transformación integral de cocina con soluciones de almacenamiento y materiales de alta calidad.'
     },
     'Reparacion de Puerta': {
         'cost': 250,  # cost per door
-        'description': 'Servicio especializado en la restauración y mantenimiento de puertas. Atendemos desde fallos menores hasta reparaciones complejas, asegurando que las puertas funcionen correctamente y mantengan su apariencia original.'
+        'description': 'Restauración y mantenimiento de puertas con garantía de funcionalidad y apariencia.'
     },
     'Reparacion de Ventana': {
-        'cost': 250,  # cost per door
-        'description': 'Servicio experto en la restauración y arreglo de ventanas. Desde solucionar filtraciones y sellados hasta reemplazar cristales dañados, garantizamos que cada ventana opere de manera eficiente y segura.'
+        'cost': 250,  # cost per window
+        'description': 'Servicio de restauración para ventanas, garantizando eficiencia y seguridad.'
     },
     'Reemplazo de Mobiliario': {
         'cost': 1500,  # custom cost
-        'description': 'Servicio dedicado a la sustitución y renovación de muebles. Ya sea por desgaste o para actualizar estilos, ofrecemos soluciones que realzan el confort y estética de cualquier espacio.'
+        'description': 'Sustitución y renovación de muebles para confort y estética mejorados.'
     },
 }
 
