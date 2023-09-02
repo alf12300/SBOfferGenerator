@@ -207,7 +207,6 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
         value_cell.paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
 
     # Terms
-    doc.add_paragraph("Términos y condiciones:")
     doc.add_paragraph(COMMERCIAL_TERMS)
 
     # Footer
