@@ -84,7 +84,7 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     cell_2a = table.cell(1, 0)
     company_details = [
         "Sandra Badillo Fonseca",
-        "NIE Y9072864-E",
+        "NIE: Y-9072864-E",
         "Paseo de la Chopera, 51",
         "28045, Madrid",
         ""
@@ -124,24 +124,42 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     service_table = doc.add_table(rows=1, cols=5)
     hdr_cells = service_table.rows[0].cells
     headers = ["Item", "Descripción", "Cantidad", "Precio", "Total"]
+    dark_blue = RGBColor(0, 0, 139)  # Dark blue color
+
+    # Formatting the header row
     for idx, header in enumerate(headers):
         hdr_cells[idx].text = header
-    
+        hdr_cells[idx].paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+        shading_element = parse_xml(r'<w:shd {} w:fill="1F5C8B"/>'.format(nsdecls('w')))
+        hdr_cells[idx]._tc.get_or_add_tcPr().append(shading_element)
+        for run in hdr_cells[idx].paragraphs[0].runs:
+            run.font.color.rgb = RGBColor(255, 255, 255)  # White font color
+
+    # Setting all table borders to be dark blue
+    for row in service_table.rows:
+        for cell in row.cells:
+            tcPr = cell._tc.get_or_add_tcPr()
+            tcBorders = parse_xml(r'<w:tcBorders xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:top w:val="single"/><w:left w:val="single"/><w:bottom w:val="single"/><w:right w:val="single"/></w:tcBorders>')
+            tcPr.append(tcBorders)
+            for border in tcBorders:
+                border.set(qn('w:color'), dark_blue.hexval[2:])
+
     for idx, service in enumerate(selected_services):
         cells = service_table.add_row().cells
         cells[0].text = str(idx + 1)
         cells[1].text = service["description"]
         cells[2].text = "1"
-        cells[3].text = str(service["cost"])
-        cells[4].text = str(service["cost"])
+        cells[3].text = "€{:.2f}".format(service["cost"])
+        cells[4].text = "€{:.2f}".format(service["cost"])
 
     # Total calculations
     iva = total_cost * 0.21
     final_total = total_cost + iva
 
-    doc.add_paragraph(f"Total: €{total_cost}")
-    doc.add_paragraph(f"IVA (21%): €{iva}")
-    doc.add_paragraph(f"Total Final: €{final_total}")
+    # Right-align the Total, IVA, and Total Final rows
+    for text in [f"Total: €{total_cost:.2f}", f"IVA (21%): €{iva:.2f}", f"Total Final: €{final_total:.2f}"]:
+        para = doc.add_paragraph(text)
+        para.alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
 
     # Terms
     doc.add_paragraph("Términos y condiciones:")
@@ -158,4 +176,3 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     doc.save(file_path)
 
     return file_path
-
