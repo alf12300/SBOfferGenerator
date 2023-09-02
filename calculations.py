@@ -151,6 +151,10 @@ def generate_word_quote(name, dni, email, address, phone, quote_number, project_
     quote_text = f"Presupuesto N.: {quote_number}"
     cell_2b.text = quote_text
     
+    # Adding the two lines
+    cell_2b.add_paragraph("info@sbreformas-madrid.com")
+    cell_2b.add_paragraph("Tlf: + 34 611 570 820 / + 34 637 845 816")
+    
     # Cell 3-a
     cell_3a = table.cell(2, 0)
     client_details = [
