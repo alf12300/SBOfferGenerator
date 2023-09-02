@@ -58,6 +58,9 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
                 element = tcBorders.find(qn('w:' + border))
                 if element is not None:
                     element.set(qn('w:val'), 'none')
+                else:
+                    new_element = parse_xml(r'<w:{} w:val="none"/>'.format(border))
+                    tcBorders.append(new_element)
     
     # Populate the table cells as per given specification
 
