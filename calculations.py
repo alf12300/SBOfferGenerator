@@ -1,7 +1,8 @@
 from docx import Document
 from constants import COMMERCIAL_TERMS
-from docx.shared import Pt  # Import the required utility functions
+from docx.shared import Pt, Cm  # Import the required utility functions
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT  # Import alignment utility
+from docx.oxml.ns import qn
 from datetime import datetime
 
 def calculate_cost(added_services):
@@ -32,63 +33,119 @@ def add_bold_before_colon(doc, text, font_size=None):
             for run in p.runs:
                 run.font.size = Pt(font_size)
 
-
 def generate_word_quote(name, dni, email, address, phone, selected_services, total_cost):
-
     doc = Document()
     
-    # Add logo to the top of the document
+    # Create a table with 3 rows and 2 columns for the top section
+    table = doc.add_table(rows=3, cols=2)
+    table.autofit = False
+    table.style = 'Table Grid'
+    for section in table._element.xpath('.//w:tblGrid/w:gridCol'):
+    section.set(qn('w:w'), str(int(9 * Cm(1))))  # Set column width to 9 cm for both columns
+
+
+    # Set the table borders to invisible
+    for row in table.rows:
+        for cell in row.cells:
+            for paragraph in cell.paragraphs:
+                for run in paragraph.runs:
+                    run.font.size = Pt(12)  # Set default font size
+            cell._element.clear_content()  # Clear default table content
+
+            # Set borders of the cell to invisible
+            for side in cell._tc.tcPr.xpath('w:tcBorders/*'):
+                side.attrib.clear()
+                side.set(qn('w:val'), 'none')
+
+    # Populate the table cells as per given specification
+
+    # Cell 1-a
+    cell_1a = table.cell(0, 0)
+    p = cell_1a.add_paragraph("Presupuesto")
+    for run in p.runs:
+        run.bold = True
+        run.font.size = Pt(18)  # Make the font size larger
+
+    # Cell 1-b
+    cell_1b = table.cell(0, 1)
     logo_path = "logo.jpeg"  # Use the logo's filename since it's in the same directory
-    paragraph = doc.add_paragraph()
-    paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT  # Right align the paragraph
     
-    # Add the picture to the centered paragraph and set the height to 40px
-    r = paragraph.add_run()
+    # Add the picture directly to the cell's paragraph and set the height
+    r = cell_1b.add_paragraph().add_run()
     r.add_picture(logo_path, height=Pt(60))
- 
-    doc.add_heading('SB REFORMAS - Presupuesto', 0)
     
-    current_date = datetime.now().strftime("%d/%m/%Y")
-    add_bold_before_colon(doc, f"Fecha: {current_date}")
-    add_bold_before_colon(doc, f"Nombre: {name}")
-    add_bold_before_colon(doc, f"DNI o NIE: {dni}")
-    add_bold_before_colon(doc, f"Email: {email}")
-    add_bold_before_colon(doc, f"Dirección: {address}")
-    add_bold_before_colon(doc, f"Teléfono: {phone}")
-    for index, service_data in enumerate(selected_services, start=1):
-        service_name = service_data['name']
-        
-        # Service name and cost remain left-aligned
-        add_bold_before_colon(doc, f"Servicio {index} - {service_name}:", font_size=12)
+    # Cell 2-a
+    cell_2a = table.cell(1, 0)
+    company_details = [
+        "",
+        "Sandra Badillo Fonseca",
+        "NIE Y9072864-E",
+        "Paseo de la Chopera, 51",
+        "28045, Madrid"
+    ]
+    for detail in company_details:
+        cell_2a.add_paragraph(detail)
 
-        # Justify-align the description
-        p_desc = doc.add_paragraph(f"Descripción: {service_data['description']}")
-        p_desc.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
-        doc.add_paragraph(f"Costo: €{service_data['cost']:.2f}")
+    # Cell 2-b
+    cell_2b = table.cell(1, 1)
+    cell_2b.text = "Presupuesto N.: XXXX"
 
-    add_bold_before_colon(doc, f"Total: €{total_cost:.2f}", font_size=12)    
+    # Cell 3-a
+    cell_3a = table.cell(2, 0)
+    client_details = [
+        f"Nombre: {name}",
+        f"DNI o NIE: {dni}",
+        f"Dirección: {address}",
+        f"Teléfono: {phone}"
+    ]
+    for detail in client_details:
+        cell_3a.add_paragraph(detail)
+
+    # Cell 3-b
+    cell_3b = table.cell(2, 1)
+    cell_3b.text = "Descripción del Proyecto: XXXX"
+
+    # Spacer between the tables
     doc.add_paragraph()
+
+    # Rest of the content remains the same
+
+    # Table with services
+    service_table = doc.add_table(rows=1, cols=5)
+    hdr_cells = service_table.rows[0].cells
+    headers = ["Item", "Descripción", "Cantidad", "Precio", "Total"]
+    for idx, header in enumerate(headers):
+        hdr_cells[idx].text = header
     
-    terms = COMMERCIAL_TERMS.split("\n")
-    for line in terms:
-        if line.endswith(':'):
-            para = doc.add_paragraph(line)
-            for run in para.runs:
-                run.bold = True
-        else:
-            doc.add_paragraph(line)
-    
-    # Add logo to the bottom of the document
-    doc.add_paragraph()
-    doc.add_paragraph()
-    paragraph2 = doc.add_paragraph()
-    paragraph2.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER  # Center align the paragraph
-    
-    # Add the picture to the centered paragraph and set the height to 40px
-    r2 = paragraph2.add_run()
-    r2.add_picture(logo_path, height=Pt(60))
-    
+    for idx, service in enumerate(selected_services):
+        cells = service_table.add_row().cells
+        cells[0].text = str(idx + 1)
+        cells[1].text = service["description"]
+        cells[2].text = "1"
+        cells[3].text = str(service["cost"])
+        cells[4].text = str(service["cost"])
+
+    # Total calculations
+    iva = total_cost * 0.21
+    final_total = total_cost + iva
+
+    doc.add_paragraph(f"Total: €{total_cost}")
+    doc.add_paragraph(f"IVA (21%): €{iva}")
+    doc.add_paragraph(f"Total Final: €{final_total}")
+
+    # Terms
+    doc.add_paragraph("Términos y condiciones:")
+    doc.add_paragraph("XXXX")  # Placeholder for actual terms
+
+    # Footer
+    footer = doc.sections[0].footer
+    p = footer.paragraphs[0]
+    p.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+    p.add_run("SB Reformas Madrid. Paseo de la Chopera, 51. 28045, Madrid. Página web: www.sbreformas-madrid.com - Instagram: @sbreformasmadrid")  # Footer text
+
+    # Save the document
     file_path = f"quote_{name.replace(' ', '_')}.docx"
     doc.save(file_path)
-    
+
     return file_path
+
