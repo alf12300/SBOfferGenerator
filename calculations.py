@@ -166,11 +166,10 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     
     for idx, service in enumerate(selected_services):
         cells = service_table.add_row().cells
-        cells[0].text = str(idx + 1)
-        cells[1].text = service["description"]
-        cells[2].text = "1"
-        cells[3].text = f"€{service['cost']:.2f}"
-        cells[4].text = f"€{service['cost']:.2f}"
+        for col_idx, content in enumerate([str(idx + 1), service["description"], "1", f"€{service['cost']:.2f}", f"€{service['cost']:.2f}"]):
+            para = cells[col_idx].add_paragraph(content)
+            if col_idx in [0, 2, 3, 4]:  # Columns to be centered
+                para.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
 
     # Set dark blue borders for the service table
     for row in service_table.rows:
