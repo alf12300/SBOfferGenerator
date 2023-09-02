@@ -157,9 +157,10 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     hdr_cells = service_table.rows[0].cells
     headers = ["Item", "Descripción", "Cantidad", "Precio", "Total"]
     for idx, header in enumerate(headers):
-        hdr_cells[idx].text = header
-        hdr_cells[idx].paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
-        hdr_cells[idx].font.color.rgb = RGBColor(255, 255, 255)  # Set font color to white
+        cell_paragraph = hdr_cells[idx].paragraphs[0]
+        cell_run = cell_paragraph.add_run(header)
+        cell_run.font.color.rgb = RGBColor(255, 255, 255)  # Set font color to white
+        cell_paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
         shading_elm = parse_xml(r'<w:shd {} w:fill="000080"/>'.format(nsdecls('w')))  # Dark blue background
         hdr_cells[idx]._tc.get_or_add_tcPr().append(shading_elm)
     
