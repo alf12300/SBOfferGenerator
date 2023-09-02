@@ -163,10 +163,12 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     
     # Table with services
     service_table = doc.add_table(rows=1, cols=5)
-    # Set column widths for columns 1, 3, 4, and 5 BEFORE populating the table
-    for idx in [0, 2, 3, 4]:  # Corresponds to 1st, 3rd, 4th, and 5th columns
-        for cell in service_table.column_cells(idx):
-            cell.width = Cm(1.5)  # You can adjust the width as needed
+    # Explicitly set column widths as the table is created
+    for idx, cell in enumerate(service_table.rows[0].cells):
+        if idx in [0, 2, 3, 4]:
+            cell.width = Cm(1.5)
+        else:
+            cell.width = Cm(12)  # For the second column, taking all available space
 
     
     hdr_cells = service_table.rows[0].cells
