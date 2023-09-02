@@ -63,6 +63,9 @@ if tab_selection == "Generador de Propuestas":
     
     # Column 2: Each Service as an individual expander
     with col2:
+        # Text input for project description
+        project_description = st.text_input("Descripción del Proyecto:")
+      
         st.subheader("Servicios disponibles")
         
         # Dropdown menu for services
