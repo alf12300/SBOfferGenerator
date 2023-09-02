@@ -43,28 +43,23 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     table = doc.add_table(rows=3, cols=2)
     table.style = 'Table Grid'
 
-    # Set the table borders to invisible
+    # Set the cell background to transparent and remove borders
     for row in table.rows:
         for cell in row.cells:
             for paragraph in cell.paragraphs:
                 for run in paragraph.runs:
                     run.font.size = Pt(12)  # Set default font size
             
-            cell._element.get_or_add_tcPr().append(parse_xml(r'<w:shd {} w:fill="FFFFFF"/>'.format(nsdecls('w'))))
+            # Remove shading (background color) from cells
+            cell._element.get_or_add_tcPr().append(parse_xml(r'<w:shd {} w:fill="auto"/>'.format(nsdecls('w'))))
             
-            # Directly set cell borders to white
+            # Remove cell borders
             tcPr = cell._element.get_or_add_tcPr()
             tcBorders = tcPr.get_or_add_tcBorders()
             for border in ['top', 'left', 'bottom', 'right']:
                 element = tcBorders.find(qn('w:' + border))
-                if element is None:
-                    element = parse_xml(r'<w:{} w:val="single" w:sz="12" w:space="0" w:color="FFFFFF"/>'.format(border))
-                    tcBorders.append(element)
-                else:
-                    element.set(qn('w:val'), 'single')
-                    element.set(qn('w:sz'), '12')
-                    element.set(qn('w:space'), '0')
-                    element.set(qn('w:color'), 'FFFFFF')
+                if element is not None:
+                    element.set(qn('w:val'), 'none')
     
     # Populate the table cells as per given specification
 
