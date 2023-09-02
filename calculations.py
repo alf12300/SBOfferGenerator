@@ -72,8 +72,8 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     # Add the picture directly to the cell's paragraph and set the height
     paragraph = cell_1b.add_paragraph()
     r = paragraph.add_run()
-    r.add_picture(logo_path, height=Pt(60))
-    paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+    r.add_picture(logo_path, height=Pt(70))
+    paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
 
     
     # Cell 2-a
