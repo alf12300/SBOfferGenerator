@@ -194,7 +194,10 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     for row in service_table.rows:
         for cell in row.cells:
             set_cell_border(cell, top={"sz": 12, "val": "single", "color": dark_blue}, bottom={"sz": 12, "val": "single", "color": dark_blue}, start={"sz": 12, "val": "single", "color": dark_blue}, end={"sz": 12, "val": "single", "color": dark_blue})
-
+    # Set column widths for columns 1, 3, 4, and 5
+    for idx in [0, 2, 3, 4]:  # Corresponds to 1st, 3rd, 4th, and 5th columns
+        for cell in service_table.columns[idx].cells:
+            cell.width = Cm(1.5)  # You can adjust the width as needed
     # Total calculations
     iva = total_cost * 0.21
     final_total = total_cost + iva
