@@ -75,7 +75,6 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     r.add_picture(logo_path, height=Pt(70))
     paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
 
-    
     # Cell 2-a
     cell_2a = table.cell(1, 0)
     company_details = [
@@ -83,9 +82,10 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
         "NIE Y9072864-E",
         "Paseo de la Chopera, 51",
         "28045, Madrid"
-        ""
     ]
-    for detail in company_details:
+    # Clear the default empty paragraph and use the first one for the first detail
+    cell_2a.text = company_details[0]
+    for detail in company_details[1:]:
         cell_2a.add_paragraph(detail)
 
     # Cell 2-b
@@ -100,7 +100,9 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
         f"Dirección: {address}",
         f"Teléfono: {phone}"
     ]
-    for detail in client_details:
+    # Clear the default empty paragraph and use the first one for the first detail
+    cell_3a.text = client_details[0]
+    for detail in client_details[1:]:
         cell_3a.add_paragraph(detail)
 
     # Cell 3-b
