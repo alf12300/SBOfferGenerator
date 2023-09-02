@@ -43,7 +43,7 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     table = doc.add_table(rows=3, cols=2)
     table.style = 'Table Grid'
 
-        # Set the table borders to invisible
+    # Set the table borders to invisible
     for row in table.rows:
         for cell in row.cells:
             for paragraph in cell.paragraphs:
@@ -52,15 +52,19 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
             
             cell._element.get_or_add_tcPr().append(parse_xml(r'<w:shd {} w:fill="FFFFFF"/>'.format(nsdecls('w'))))
             
-            # Set cell borders to white
-            borders = cell._element.get_or_add_tcPr().get_or_add_tcBorders()
-            for border in borders:
-                border.attrib.clear()
-                border.set(qn('w:val'), 'single')
-                border.set(qn('w:sz'), '12')  # size of the border
-                border.set(qn('w:space'), '0')
-                border.set(qn('w:color'), 'FFFFFF')  # Set color to white
-
+            # Directly set cell borders to white
+            tcPr = cell._element.get_or_add_tcPr()
+            tcBorders = tcPr.get_or_add_tcBorders()
+            for border in ['top', 'left', 'bottom', 'right']:
+                element = tcBorders.find(qn('w:' + border))
+                if element is None:
+                    element = parse_xml(r'<w:{} w:val="single" w:sz="12" w:space="0" w:color="FFFFFF"/>'.format(border))
+                    tcBorders.append(element)
+                else:
+                    element.set(qn('w:val'), 'single')
+                    element.set(qn('w:sz'), '12')
+                    element.set(qn('w:space'), '0')
+                    element.set(qn('w:color'), 'FFFFFF')
     
     # Populate the table cells as per given specification
 
