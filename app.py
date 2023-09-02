@@ -122,6 +122,8 @@ if tab_selection == "Generador de Propuestas":
     st.subheader("Términos Comerciales")
     edited_terms = st.text_area("Editar términos comerciales:", value=COMMERCIAL_TERMS, height=150)
     st.markdown("---")
+    st.subheader("Duración de los Trabajos")
+    duration = st.text_area("Indicar duracion de los trabajos:", value=COMMERCIAL_TERMS, height=150)
     # Create a row with two centered columns and spacers on the side
     generate_col, download_col = st.columns([6,6])
     
