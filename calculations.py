@@ -130,10 +130,6 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     cell_2b = table.cell(1, 1)  # assuming cell numbering starts from 0
     quote_text = f"Presupuesto N.: {quote_number}"
     
-    # Clear the default empty paragraph and set the quote_text
-    cell_2b.text = quote_text
-
-
     # Cell 3-a
     cell_3a = table.cell(2, 0)
     client_details = [
