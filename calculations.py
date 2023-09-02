@@ -238,6 +238,7 @@ def generate_word_quote(name, dni, email, address, phone, quote_number, project_
 
     # Save the document
     file_path = f"quote_{name.replace(' ', '_')}.docx"
+    set_font_and_color(doc)
     doc.save(file_path)
     
     return file_path
