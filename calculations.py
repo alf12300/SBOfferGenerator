@@ -152,9 +152,28 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
 
     dark_blue = RGBColor(0, 0, 128)
 
+    # Define column widths
+    col_widths = {
+        0: Cm(1.5),  # Column 1
+        1: Cm(8.0),  # Column 2 (will be adjusted later)
+        2: Cm(2.0),  # Column 3
+        3: Cm(2.5),  # Column 4
+        4: Cm(2.5)   # Column 5
+    }
+    
     # Table with services
     service_table = doc.add_table(rows=1, cols=5)
     hdr_cells = service_table.rows[0].cells
+
+    # Adjusting column widths
+    total_width = sum(col_widths.values())
+    table_width = Cm(17.0)  # Assuming a default table width, you can adjust this value as needed
+    col_widths[1] = table_width - (total_width - col_widths[1])
+    
+    for idx, width in col_widths.items():
+        for cell in service_table.column_cells(idx):
+            cell.width = width
+
     headers = ["Item", "Descripción", "Cantidad", "Precio", "Total"]
     for idx, header in enumerate(headers):
         cell_paragraph = hdr_cells[idx].paragraphs[0]
