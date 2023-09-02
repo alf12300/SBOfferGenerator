@@ -130,7 +130,8 @@ if tab_selection == "Generador de Propuestas":
         selected_services = st.session_state.added_services
     
         # Generate Word quote
-        file_path = generate_word_quote(name, dni, email, address, phone, selected_services, total_cost)
+        file_path = generate_word_quote(name, dni, email, address, phone, quote_number, project_description, selected_services, total_cost)
+
     
         with open(file_path, "rb") as file:
             # "Descargar Oferta" button in the right column
