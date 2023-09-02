@@ -128,7 +128,7 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
 
     # Cell 2-b
     cell_2b = table.cell(1, 1)
-    cell_2b.text = "Presupuesto N.: XXXX"
+    cell_2b.text = f"Presupuesto N.: {quote_number}"
 
     # Cell 3-a
     cell_3a = table.cell(2, 0)
@@ -145,7 +145,7 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
 
     # Cell 3-b
     cell_3b = table.cell(2, 1)
-    cell_3b.text = "Descripción del Proyecto: XXXX"
+    cell_3b.text = f"Descripción del Proyecto: {project_description}"
 
     # Spacer between the tables
     doc.add_paragraph()
