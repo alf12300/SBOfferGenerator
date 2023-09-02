@@ -32,7 +32,8 @@ if tab_selection == "Generador de Propuestas":
         col1, col2, col3 = st.columns([6,1,6])
         col2.image(img_resized, width=new_width)
     
-    
+    quote_number = None
+    project_description = None
     # Title Row
     st.title("Generador de Ofertas")
     colDETAILS, colDETAILS2= st.columns([6,6])
