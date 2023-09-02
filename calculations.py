@@ -3,7 +3,8 @@ from constants import COMMERCIAL_TERMS
 from docx.shared import Pt, Cm  # Import the required utility functions
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT  # Import alignment utility
 from docx.oxml.ns import qn
-from docx.shared import RGBColor
+from docx.oxml import parse_xml
+from docx.oxml.ns import nsdecls
 from datetime import datetime
 
 def calculate_cost(added_services):
@@ -57,10 +58,9 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
                 side.attrib.clear()
                 side.set(qn('w:val'), 'none')
 
-    # Set background color for each cell to white
     for row in table.rows:
         for cell in row.cells:
-            cell._element.get_or_add_tcPr().get_or_add_shd().fill = RGBColor(255, 255, 255).hexval[2:]  # White color
+            cell._tc.get_or_add_tcPr().append(parse_xml(r'<w:shd {} w:fill="FFFFFF"/>'.format(nsdecls('w'))))
     
     # Set external borders of the table to white
     white_border = RGBColor(255, 255, 255)
