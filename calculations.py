@@ -52,15 +52,13 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
                 for run in paragraph.runs:
                     run.font.size = Pt(12)
             
-            # Set borders to None (no border)
-            cell_borders = cell.borders
-            cell_borders.top = None
-            cell_borders.bottom = None
-            cell_borders.left = None
-            cell_borders.right = None
+            # Set borders to invisible
+            tcPr = cell._tc.get_or_add_tcPr()
+            tcBorders = parse_xml(r'<w:tcBorders xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:top w:val="nil"/><w:left w:val="nil"/><w:bottom w:val="nil"/><w:right w:val="nil"/></w:tcBorders>')
+            tcPr.append(tcBorders)
 
             # Set shading to transparent
-            cell_shading = cell._tc.get_or_add_tcPr().get_or_add_shd()
+            cell_shading = tcPr.get_or_add_shd()
             cell_shading.clear_content()
     
     # Populate the table cells as per given specification
