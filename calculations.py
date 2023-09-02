@@ -2,6 +2,7 @@ from docx import Document
 from constants import COMMERCIAL_TERMS
 from docx.shared import Pt, Cm  # Import the required utility functions
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT  # Import alignment utility
+from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.oxml import parse_xml
 from docx.oxml.ns import nsdecls
@@ -13,6 +14,37 @@ def calculate_cost(added_services):
     for service_data in added_services:
         total_cost += service_data['cost']
     return total_cost
+
+def set_cell_border(cell, **kwargs):
+    """
+    Set cell's border
+    """
+    tc = cell._tc
+    tcPr = tc.get_or_add_tcPr()
+
+    # Check for tag existence, if none found, then create one
+    tcBorders = tcPr.first_child_found_in("w:tcBorders")
+    if tcBorders is None:
+        tcBorders = OxmlElement('w:tcBorders')
+        tcPr.append(tcBorders)
+
+    # Loop over all available tags
+    for edge in ('start', 'top', 'end', 'bottom', 'insideH', 'insideV'):
+        edge_data = kwargs.get(edge)
+        if edge_data:
+            tag = 'w:{}'.format(edge)
+
+            # Check for tag existence, if none found, then create one
+            element = tcBorders.find(qn(tag))
+            if element is None:
+                element = OxmlElement(tag)
+                tcBorders.append(element)
+
+            # Order of attributes is important
+            for key in ["sz", "val", "color", "space", "shadow"]:
+                if key in edge_data:
+                    element.set(qn('w:{}'.format(key)), str(edge_data[key]))
+
 
 def add_bold_before_colon(doc, text, font_size=None):
     # Split the text at the colon
@@ -118,46 +150,40 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     # Spacer between the tables
     doc.add_paragraph()
 
-    # Rest of the content remains the same
+    dark_blue = RGBColor(0, 0, 128)
 
     # Table with services
     service_table = doc.add_table(rows=1, cols=5)
     hdr_cells = service_table.rows[0].cells
     headers = ["Item", "Descripción", "Cantidad", "Precio", "Total"]
-    dark_blue = RGBColor(0, 0, 139)  # Dark blue color
-
-    # Formatting the header row
     for idx, header in enumerate(headers):
         hdr_cells[idx].text = header
         hdr_cells[idx].paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
-        shading_element = parse_xml(r'<w:shd {} w:fill="1F5C8B"/>'.format(nsdecls('w')))
-        hdr_cells[idx]._tc.get_or_add_tcPr().append(shading_element)
-        for run in hdr_cells[idx].paragraphs[0].runs:
-            run.font.color.rgb = RGBColor(255, 255, 255)  # White font color
-
-    for row in service_table.rows:
-        for cell in row.cells:
-            cell_borders = cell.borders
-            for border in [cell_borders.top, cell_borders.bottom, cell_borders.left, cell_borders.right]:
-                border.color = dark_blue
-
-
+        hdr_cells[idx].font.color.rgb = RGBColor(255, 255, 255)  # Set font color to white
+        shading_elm = parse_xml(r'<w:shd {} w:fill="000080"/>'.format(nsdecls('w')))  # Dark blue background
+        hdr_cells[idx]._tc.get_or_add_tcPr().append(shading_elm)
+    
     for idx, service in enumerate(selected_services):
         cells = service_table.add_row().cells
         cells[0].text = str(idx + 1)
         cells[1].text = service["description"]
         cells[2].text = "1"
-        cells[3].text = "€{:.2f}".format(service["cost"])
-        cells[4].text = "€{:.2f}".format(service["cost"])
+        cells[3].text = f"€{service['cost']:.2f}"
+        cells[4].text = f"€{service['cost']:.2f}"
+
+    # Set dark blue borders for the service table
+    for row in service_table.rows:
+        for cell in row.cells:
+            set_cell_border(cell, top={"sz": 12, "val": "single", "color": dark_blue}, bottom={"sz": 12, "val": "single", "color": dark_blue}, start={"sz": 12, "val": "single", "color": dark_blue}, end={"sz": 12, "val": "single", "color": dark_blue})
 
     # Total calculations
     iva = total_cost * 0.21
     final_total = total_cost + iva
 
-    # Right-align the Total, IVA, and Total Final rows
+    # Aligning specified items to the right of the page
     for text in [f"Total: €{total_cost:.2f}", f"IVA (21%): €{iva:.2f}", f"Total Final: €{final_total:.2f}"]:
-        para = doc.add_paragraph(text)
-        para.alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
+        p = doc.add_paragraph(text)
+        p.alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
 
     # Terms
     doc.add_paragraph("Términos y condiciones:")
