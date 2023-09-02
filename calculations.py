@@ -44,23 +44,24 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     table.style = 'Table Grid'
 
 
-    # Set the cell background to transparent and remove borders
+    # Remove borders and shading
     for row in table.rows:
         for cell in row.cells:
+            # Set font size
             for paragraph in cell.paragraphs:
                 for run in paragraph.runs:
-                    run.font.size = Pt(12)  # Set default font size
+                    run.font.size = Pt(12)
             
-            # Set borders of the cell to none (invisible)
-            tcPr = cell._element.get_or_add_tcPr()
-            tcBorders = tcPr.get_or_add_tcBorders()
-            for border in ['top', 'left', 'bottom', 'right']:
-                element = tcBorders.find(qn('w:' + border))
-                if element is not None:
-                    element.set(qn('w:val'), 'none')
-                else:
-                    new_element = parse_xml(r'<w:{} w:val="none"/>'.format(border))
-                    tcBorders.append(new_element)
+            # Set borders to None (no border)
+            cell_borders = cell.borders
+            cell_borders.top = None
+            cell_borders.bottom = None
+            cell_borders.left = None
+            cell_borders.right = None
+
+            # Set shading to transparent
+            cell_shading = cell._tc.get_or_add_tcPr().get_or_add_shd()
+            cell_shading.clear_content()
     
     # Populate the table cells as per given specification
 
