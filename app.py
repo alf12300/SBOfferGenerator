@@ -35,7 +35,10 @@ if tab_selection == "Generador de Propuestas":
     
     # Title Row
     st.title("Generador de Ofertas")
-    # Create spacer and main columns for the top row
+    # Text input for project description
+    project_description = st.text_input("Descripción del Proyecto:")      
+  
+  # Create spacer and main columns for the top row
     col1, col2= st.columns([6,6])
     
     # Column 1: Customer Data
@@ -63,8 +66,6 @@ if tab_selection == "Generador de Propuestas":
     
     # Column 2: Each Service as an individual expander
     with col2:
-        # Text input for project description
-        project_description = st.text_input("Descripción del Proyecto:")
       
         st.subheader("Servicios disponibles")
         
