@@ -45,7 +45,23 @@ def set_cell_border(cell, **kwargs):
                 if key in edge_data:
                     element.set(qn('w:{}'.format(key)), str(edge_data[key]))
 
+def set_font_color_to_blue(doc_path):
+    # Open the Word document
+    doc = Document(doc_path)
 
+    # Define the RGB values for dark blue color
+    dark_blue = RGBColor(0, 0, 139)
+
+    # Iterate through all paragraphs
+    for paragraph in doc.paragraphs:
+        # For each paragraph, iterate through all runs
+        for run in paragraph.runs:
+            # Set the font color of each run to dark blue
+            run.font.color.rgb = dark_blue
+
+    # Save the modified document
+    doc.save(doc_path)
+            
 def add_bold_before_colon(doc, text, font_size=None):
     # Split the text at the colon
     parts = text.split(':', 1)
