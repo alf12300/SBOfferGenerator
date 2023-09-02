@@ -39,8 +39,8 @@ def generate_word_quote(name, dni, email, address, phone, selected_services, tot
     # Create a table with 3 rows and 2 columns for the top section
     table = doc.add_table(rows=3, cols=2)
     table.style = 'Table Grid'
-    for section in table._element.xpath('.//w:tblGrid/w:gridCol'):
-        section.set(qn('w:w'), str(int(8.5 * Cm(1))))  # Set column width to 8.5 cm for both columns
+    #for section in table._element.xpath('.//w:tblGrid/w:gridCol'):
+    #    section.set(qn('w:w'), str(int(8.5 * Cm(1))))  # Set column width to 8.5 cm for both columns
 
 
     # Set the table borders to invisible
